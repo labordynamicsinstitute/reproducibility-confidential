@@ -1,0 +1,9 @@
+---
+title: "Template for R presentations"
+author: "Lars Vilhuber"
+date: "`r sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+---
