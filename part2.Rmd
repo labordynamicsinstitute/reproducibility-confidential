@@ -197,7 +197,7 @@ and add `config-template.yml` to the repo, together with instructions in the REA
 
 ## Exercise 2-1
 
-From the previous repository (`part-1-2`), 
+From the previous repository ( [labordynamicsinstitute/test-part-1-2](https://github.com/labordynamicsinstitute/test-part-1-2)), 
 
 - ensure that you have committed all changes (check with `git status`)
 - modify the programs to have an external configuration file

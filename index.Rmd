@@ -198,11 +198,12 @@ use "$data/path/data.dta"
 <div class="blue3">
 
 > Follow the lesson learned here and create a basic project structure
+
 > 1. FORK the following repository: [labordynamicsinstitute/test-part-1-1](https://github.com/labordynamicsinstitute/test-part-1-1)
 > 2. Populate it with the directory structure
 > 3. Push to your Github repository (your own fork)
 
-Did that work? 
+> Did that work? 
 </div>
 
 ## Populate the project structure
@@ -211,7 +212,7 @@ Did that work?
 > 4. Add a README describing the purpose of each directory
 > 5. Push to your Github repository
 
-Did that work?
+> Did that work?
 </div>
 
 # Exercise 1-2
@@ -227,7 +228,7 @@ Once you are done, at most one line can be changed to make it run!
 
 </div>
 
-Do you think your code will work on somebody else computer or in the cloud?
+Do you think your code will work on somebody else's computer or in the cloud?
 
 
 

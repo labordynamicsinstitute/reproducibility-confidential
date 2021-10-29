@@ -318,11 +318,15 @@ Because we have the cached file, we are safe from such breaks in the API. In fac
 
 ## Exercise 3-1
 
+```{r sysinfo,include=FALSE}
+mysysinfo <- try(system("cat /proc/cpuinfo | grep 'model name' | tail -1 | awk -F: '{ print $2 } '",intern=TRUE))
+```
+
 <div class="blue3">
 
 Run this whole document on your own computer or in the cloud!
 
-- This was run on a `r system("cat /proc/cpuinfo | grep 'model name' | tail -1 | awk -F: '{ print $2 } '")`, and  took **`r round(elapsed.time,2)` seconds** for `r counties.to.query` counties. 
+- This was run on a `r mysysinfo`, and  took **`r round(elapsed.time,2)` seconds** for `r counties.to.query` counties. 
 - How long does it take to run on yours?
 - Clone this repository: [labordynamicsinstitute/reproducibility-confidential](https://github.com/labordynamicsinstitute/reproducibility-confidential)
 - Open the `part3.Rmd` document, and `knit`.
