@@ -1,5 +1,10 @@
 # Data Science Tools Workshop: Working with confidential data
 
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5620889.svg)](https://doi.org/10.5281/zenodo.5620889)
+
+
 Prepared for presentation at [MONT^2](https://www.mont2-econlab.com/) on 2021-10-29.
 
 ## Creating Presentation Slides
