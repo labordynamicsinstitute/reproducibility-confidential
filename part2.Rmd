@@ -1,0 +1,209 @@
+---
+title: "Part 2: Secure Coding Techniques"
+author: 
+  - "Lars Vilhuber"
+  - "David Wasser"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+    widescreen: true
+---
+
+
+```{r setup, include=FALSE}
+# At a minimum, this project environment should have  rprojroot - the rest can later be dynamically added if necessary.
+knitr::opts_chunk$set(echo = TRUE)
+require("rprojroot")
+basepath <- rprojroot::find_root(rprojroot::has_file("README.md"))
+source(file.path(basepath,"libraries.R"))
+```
+
+
+# Part 2 | Secure Coding Techniques
+
+## Confidential parameters
+
+Whether we work with actual confidential data, or just need a place to store login credentials, you need to think hard about this. 
+
+Examples include:
+
+- to use an API, you need a key (we will see this in Part 3).  Where/how do we store it? There is [no real consensus](https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/) - in other words, there are lots of solutions. 
+- you need to access a database, and location/name/credentials are considered confidential
+- you used a "random seed" to sort data with identifies, to replace them with fake identifiers. Keeping the random seed confidential is critical so that others cannot undo your replacement.
+
+# Some best practices (not just for confidential data)
+
+## Configuration files
+
+It is in general good practice to keep configuration parameters in a ... *configuration file*.
+
+What does this look like for R/ Stata/ SAS/ etc.?
+
+## Stata configuration files {.smaller}
+
+```{stata, eval=FALSE}
+/* this file might be called "config.do" */
+global basepath "`pwd'"      // change this for your specific system
+global icpsrpath "$basepath/data/ICPSR_13568-V1/ICPSR_13568/DS0002"  /* local relative path */
+global inputdata "$basepath/data/inputdata"  // this is where you would read data acquired elsewhere
+global outputdata "$basepath/data/outputdata" // this is where you would write the data you create in this project
+global results "$basepath/tables"       // All tables for inclusion in your paper go here
+global programs "$basepath/programs"    // All programs (which you might "include") are to be found here
+global adobase  "$basepath/programs/ado" // Ado packages used by the project are to be found here
+```
+which can then be included in "main.do" as
+```{stata, eval=FALSE}
+include "config.do"
+
+use "$outputdata/main.dta", clear
+reg x y z 
+etc. etc.
+```
+
+## R configuration files {.smaller}
+
+The same goes for R files
+
+```{r, eval=FALSE}
+# this file might be called "config.R" 
+basedata <- file.path(basepath,"data")
+rawdata  <- file.path(basedata,"raw")
+generated<- file.path(basedata,"generated")
+seed.1       <- "12345"
+sql.login    <- "myusername"
+sql.password <- "supersecret"
+```
+which can then be included with 
+```{r, eval=FALSE}
+source("config.R",echo=FALSE)
+# other commands follow
+```
+
+# Specific security practices
+
+## Various ways to securely store information
+
+- ignored files in a project directory
+- files outside a project directory
+- environment variables outside of R 
+
+For detailed examples, see [Databases using R from Rstudio](https://db.rstudio.com/best-practices/managing-credentials/).
+
+## Storing parameters outside the project directory
+
+Here, we use the `~/.Renviron` file, which is usually in your home directory. Here's what the package documentation for `tidycensus` says
+
+```{r, eval=FALSE}
+census_api_key("111111abc", overwrite = TRUE, install = TRUE)
+# First time, relead your environment so you can use the key without restarting R.
+readRenviron("~/.Renviron")
+# You can check it with:
+Sys.getenv("CENSUS_API_KEY")
+```
+
+
+
+## Using ignored files in a project directory 
+
+The [config](https://github.com/rstudio/config) can be used to keep the parameters outside of the R script by saving them in a `config.yml` file. 
+
+```{r, eval=FALSE}
+install.packages("config")
+```
+
+
+Here is an example yml file:
+
+```{yaml}
+default:
+  taxdata:
+    driver: 'Postgres' 
+    server: 'mydb.taxes.gov'
+    uid: 'local-account'
+    pwd: 'my-password'  
+    port: 5432
+    database: 'incometaxes'
+```
+
+---
+
+This is how the connection arguments would be called inside the R script:
+
+```{r, eval=FALSE}
+# get the relevant parameters
+dw <- config::get("datawarehouse")
+# establish the connection, without revealing the parameters
+con <- DBI::dbConnect(odbc::odbc(),
+   Driver = dw$driver,
+   Server = dw$server,
+   UID    = dw$uid,
+   PWD    = dw$pwd,
+   Port   = dw$port,
+   Database = dw$database
+)
+```
+
+
+## Doing the same with the Renviron file
+
+You may have noticed that it is possible to read (or write) the `.Renviron`  file from other locations. Thus, you could also put it in the project directory (denoted by `.`), but exclude it from `git`:
+
+```{r, eval=FALSE}
+# Read the file
+readRenviron("./.Renviron")
+# You can check it with:
+Sys.getenv("CENSUS_API_KEY")
+```
+
+Note however that this might not work with commands that expect the file to be in your home directory.
+
+## Protecting files from inclusion in repository
+
+To protect `config.yml` or `.Renviron` from being stored in your `git` repo, add it to the `.gitignore` file. Simply list it:
+
+```
+config.yml
+.Renviron
+```
+
+and it will not be added to your repository files!
+
+## Documenting files that are not in the repository!
+
+You should probably provide a template on how to fill out the parameters for the next user:
+
+```{yaml}
+default:
+  taxdata:
+    driver: 'Postgres' 
+    server: 'confidental.server.name'
+    uid: 'local-account'
+    pwd: 'put your password here'  
+    port: 5432
+    database: 'this should be the DB with the income taxes'
+```
+and add `config-template.yml` to the repo, together with instructions in the README.
+
+## Methods I do not like
+
+- keystore - require interactive user setup
+- global R or Stata or ... configurations - may be intrusive to other users' setup
+  - strictly, the `~/.Renviron` file is also global
+  
+
+# Exercise 2
+
+## Exercise 2-1
+
+From the previous repository ( [labordynamicsinstitute/test-part-1-2](https://github.com/labordynamicsinstitute/test-part-1-2)), 
+
+- ensure that you have committed all changes (check with `git status`)
+- modify the programs to have an external configuration file
+- push to your repository
+
+How portable is your code now?
+
+
+# Next [Part 3](part3.html)
