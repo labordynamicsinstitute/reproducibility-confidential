@@ -260,9 +260,9 @@ census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 time.age10</pre>
 
 <pre >##    user  system elapsed 
-##   0.038   0.001   0.658</pre>
+##   0.039   0.003   0.693</pre>
 
-<p>it took <strong>0.658 seconds</strong>. But it only generated 52 observations!</p>
+<p>it took <strong>0.693 seconds</strong>. But it only generated 52 observations!</p>
 
 <pre class = 'prettyprint lang-r'># inspect the data
 head(age10)</pre>
@@ -311,9 +311,9 @@ age10block &lt;- get_decennial(geography = &quot;block&quot;,state=&quot;NY&quot
 <pre class = 'prettyprint lang-r'># time it took to run this
 time.block</pre>
 
-<pre >## Time difference of 0.8673384 secs</pre>
+<pre >## Time difference of 0.8597481 secs</pre>
 
-<p><strong>0.867338418960571 seconds</strong>. It generated 3082 observations.</p>
+<p><strong>0.859748125076294 seconds</strong>. It generated 3082 observations.</p>
 
 <p>For ONE county.</p>
 
@@ -579,7 +579,7 @@ generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
 <pre class = 'prettyprint lang-r'>system.time(saveRDS(blocks,file = file.path(cache,&quot;block_median.Rds&quot;)))</pre>
 
 <pre >##    user  system elapsed 
-##   0.190   0.001   0.224</pre>
+##   0.190   0.000   0.217</pre>
 
 <pre class = 'prettyprint lang-r'>rm(blocks)
 start.time &lt;- Sys.time()
@@ -587,7 +587,7 @@ blocks &lt;- readRDS(file=file.path(cache,&quot;block_median.Rds&quot;))
 read.time &lt;- Sys.time() - start.time
 read.scaled &lt;- read.time / counties.to.query * nrow(fips_codes)</pre>
 
-<p>Assuming that scaling up to the full filesize is linear, it would take <strong>8.33 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3052.06 seconds</strong> for using the API each time.</p>
+<p>Assuming that scaling up to the full filesize is linear, it would take <strong>8.66 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3052.06 seconds</strong> for using the API each time.</p>
 
 </article></slide><slide class=""><hgroup><h2>Refinements</h2></hgroup><article  id="refinements">
 
@@ -703,7 +703,9 @@ capture confirm file “$intermediate/step1.dta&quot;
 
 <p>Do you understand the various parts?</p>
 
-<p>What is the connection with confidential data?</p></div></article></slide>
+<p>What is the connection with confidential data?</p></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Next <a href='part4.pdf' title=''>Part 4</a></h2></hgroup><article  id="next-part-4"></article></slide>
 
 
   <slide class="backdrop"></slide>
