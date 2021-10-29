@@ -235,7 +235,7 @@ Sys.getenv(&quot;CENSUS_API_KEY&quot;)</pre>
 
 <p>To reproduce this, <a href='http://api.census.gov/data/key_signup.html' title=''>obtain a Census API key</a>, and run the code above. We can then set the API key for the <code>tidycensus</code> package.</p>
 
-<pre class = 'prettyprint lang-r'>if (file.exists(&quot;~/.Renviron&quot;)) { readRenviron(&quot;~/.Renviron&quot;) }
+<pre class = 'prettyprint lang-r'>if ( file.exists(&quot;~/.Renviron&quot;) ) { readRenviron(&quot;~/.Renviron&quot;) }
 census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 
 <pre >## To install your API key for use in future sessions, run this function with `install = TRUE`.</pre>
@@ -260,9 +260,9 @@ census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 time.age10</pre>
 
 <pre >##    user  system elapsed 
-##   0.046   0.000   0.899</pre>
+##   0.062   0.000   0.906</pre>
 
-<p>it took <strong>0.899 seconds</strong>. But it only generated 52 observations!</p>
+<p>it took <strong>0.906 seconds</strong>. But it only generated 52 observations!</p>
 
 <pre class = 'prettyprint lang-r'># inspect the data
 head(age10)</pre>
@@ -311,9 +311,9 @@ age10block &lt;- get_decennial(geography = &quot;block&quot;,state=&quot;NY&quot
 <pre class = 'prettyprint lang-r'># time it took to run this
 time.block</pre>
 
-<pre >## Time difference of 2.280277 secs</pre>
+<pre >## Time difference of 1.399113 secs</pre>
 
-<p><strong>2.28027749061584 seconds</strong>. It generated 3082 observations.</p>
+<p><strong>1.39911293983459 seconds</strong>. It generated 3082 observations.</p>
 
 <p>For ONE county.</p>
 
@@ -485,19 +485,19 @@ elapsed.time &lt;- end.time - start.time</pre>
 
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
-<p>That took <strong>52.79 seconds</strong> for 30 of 3237 counties, yielding 84042 records.</p>
+<p>That took <strong>30.7 seconds</strong> for 30 of 3237 counties, yielding 84042 records.</p>
 
 <p>You could estimate the total time as:</p>
 
 <pre class = 'prettyprint lang-r'>elapsed.scale &lt;- elapsed.time / counties.to.query * nrow(fips_codes)
 elapsed.scale</pre>
 
-<pre >## Time difference of 5696.105 secs</pre>
+<pre >## Time difference of 3312.996 secs</pre>
 
 <p>yielding</p>
 
 <blockquote>
-<p><strong>94.9</strong> minutes</p>
+<p><strong>55.2</strong> minutes</p>
 </blockquote>
 
 <p>Would you want to incur that time every time you run the code for the entire country?</p>
@@ -510,7 +510,7 @@ elapsed.scale</pre>
 
 <ul>
 <li>we reduced the number down to a feasible number (<strong>30</strong> counties)</li>
-<li>estimated the total runtime (<strong>94.9</strong> minutes)</li>
+<li>estimated the total runtime (<strong>55.2</strong> minutes)</li>
 </ul>
 
 <p>Ideally, we would use two values for the parameter to control this: a really small number to test code for functionality, and a larger number to get some meaningful results.</p>
@@ -579,7 +579,7 @@ generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
 <pre class = 'prettyprint lang-r'>system.time(saveRDS(blocks,file = file.path(cache,&quot;block_median.Rds&quot;)))</pre>
 
 <pre >##    user  system elapsed 
-##   0.206   0.000   0.205</pre>
+##   0.288   0.000   0.287</pre>
 
 <pre class = 'prettyprint lang-r'>rm(blocks)
 start.time &lt;- Sys.time()
@@ -587,7 +587,7 @@ blocks &lt;- readRDS(file=file.path(cache,&quot;block_median.Rds&quot;))
 read.time &lt;- Sys.time() - start.time
 read.scaled &lt;- read.time / counties.to.query * nrow(fips_codes)</pre>
 
-<p>Assuming that scaling up to the full filesize is linear, it would take <strong>11.03 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>5696.11 seconds</strong> for using the API each time.</p>
+<p>Assuming that scaling up to the full filesize is linear, it would take <strong>15.24 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3313 seconds</strong> for using the API each time.</p>
 
 </article></slide><slide class=""><hgroup><h2>Refinements</h2></hgroup><article  id="refinements">
 
@@ -620,6 +620,73 @@ if ( file.exists(cache.blocks)) {
 
 <p>Because we have the cached file, we are safe from such breaks in the API. In fact, when providing our replication package, we should (if allowed by license) provide the cached file, yet not remove the part about downloading it.</p>
 
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Quick Summary</h2></hgroup><article  id="quick-summary">
+
+</article></slide><slide class=""><hgroup><h2>Tips and Tricks</h2></hgroup><article  id="tips-and-tricks">
+
+<ul>
+<li>Have the ability to test your code
+
+<ul>
+<li>Build tests into your code</li>
+</ul></li>
+<li>Use intermediate files / split your processing into pieces</li>
+<li>Check for intermediate files.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'># R:
+if ( ! file.exists(file.path(intermediate,”step1.Rdata”)) {
+    prepare_file(in=“step0”,out=“step1”,outpath=intermediate)
+} else {
+   message(“File exists, skipping processing”)
+}</pre>
+
+<pre class = 'prettyprint lang-stata'>/* Stata */
+capture confirm file “$intermediate/step1.dta&quot;
+  if _rc!=0 {
+    process_file step0 step2 $intermediate
+}  else {
+    display &quot; File exists, skipping processing &quot;
+  }</pre>
+
+</article></slide><slide class=""><hgroup><h2>Tips and Tricks 2</h2></hgroup><article  id="tips-and-tricks-2">
+
+<h3>Cleanly separate Confidential data and public use data</h3>
+
+<ul>
+<li>You are going to have to provide copies of the public use data without compromising confidentiality</li>
+</ul>
+
+<h3>Cleanly separate Confidential parameters and the rest of the code</h3>
+
+<ul>
+<li>Reduces need to redact programs</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Tips and Tricks 3</h2></hgroup><article  id="tips-and-tricks-3">
+
+<p><strong>Cleanly separate and preserve</strong></p>
+
+<ul>
+<li>Data acquisition code
+
+<ul>
+<li>Or instructions, needs to be re-executable</li>
+</ul></li>
+<li>Confidential parameters and the rest of the code
+
+<ul>
+<li>Reduces need to redact programs</li>
+<li>API keys and the like</li>
+</ul></li>
+<li>Intermediate data extracts
+
+<ul>
+<li>When its impossible to exactly re-extract data</li>
+<li>When data extract takes a long time</li>
+</ul></li>
+</ul>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercise 3</h2></hgroup><article  id="exercise-3">
 
 </article></slide><slide class=""><hgroup><h2>Exercise 3-1</h2></hgroup><article  id="exercise-3-1">
@@ -628,7 +695,7 @@ if ( file.exists(cache.blocks)) {
 <p>Run this whole document on your own computer or in the cloud!</p>
 
 <ul>
-<li>This was run on a Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, and took <strong>52.79 seconds</strong> for 30 counties.</li>
+<li>This was run on a Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, and took <strong>30.7 seconds</strong> for 30 counties.</li>
 <li>How long does it take to run on yours?</li>
 <li>Clone this repository: <a href='https://github.com/labordynamicsinstitute/reproducibility-confidential' title=''>labordynamicsinstitute/reproducibility-confidential</a></li>
 <li>Open the <code>part3.Rmd</code> document, and <code>knit</code>.</li>
@@ -636,7 +703,9 @@ if ( file.exists(cache.blocks)) {
 
 <p>Do you understand the various parts?</p>
 
-<p>What is the connection with confidential data?</p></div></article></slide>
+<p>What is the connection with confidential data?</p></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Next <a href='part4.pdf' title=''>Part 4</a></h2></hgroup><article  id="next-part-4"></article></slide>
 
 
   <slide class="backdrop"></slide>

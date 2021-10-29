@@ -158,7 +158,42 @@ It might be "Future You!"
   - No manual calculation of numbers
 - Use cross-platform programming practices
 
-## Reproducibility - Example
+## Cross-platform programming practices 1
+
+**Use programming-language specific code as much as possible**
+
+Avoid
+```{r, eval=FALSE}
+system("unzip C:\data\myfile.zip")
+```
+or
+```{stata, eval=FALSE}
+shell unzip "C:\data\myfile.zip"
+```
+
+
+## Cross-platform programming practices 1
+
+Most languages have appropriate code:
+
+R:
+
+```{r, eval=FALSE}
+unzip(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
+      junkpaths = FALSE, exdir = ".", unzip = "internal",
+      setTimes = FALSE)
+```
+
+Stata:
+
+```{stata, eval=FALSE}
+unzipfile "zipfile.zip" [, replace]
+```
+
+
+## Cross-platform programming practices 2
+
+Use neutral pathnames (mostly forward slashes)
 
 ::: {.columns-2}
 
@@ -190,6 +225,89 @@ use "$data/path/data.dta"
 ::::
 
 :::
+
+
+# Data structure when data is confidential
+
+## Back to the TIER protocol
+
+![TIER Protocol again](images/tier-protocol-2.png)
+
+## Back to the TIER protocol
+
+![TIER Protocol again](images/tier-protocol-home.png)
+
+
+## When data are big/in the cloud
+
+
+![TIER Protocol Big data](images/tier-bigdata.png)
+
+## When data are confidential
+
+
+![TIER Protocol Confidential](images/tier-confidential.png)
+
+
+## When data are confidential
+
+
+![TIER Protocol Confidential](images/tier-confidential2.png)
+
+
+## Project setup examples
+
+
+::: {.columns-2}
+
+:::: {.column}
+
+This may no longer work:
+
+```
+/datos/
+    /brutos
+    /limpiados
+    /finales
+/codigo
+/articulo
+```
+
+::::
+
+
+:::: {.column}
+
+```
+/proyecto/
+     /datos/
+        /brutos
+        /limpiados
+        /finales
+     /codigo
+     /articulo
+/secretos            (read-only)
+     /impuestos      (read-only)
+     /salarios       (read-only)
+```
+
+:::: 
+
+:::
+
+
+
+## Stata configuration files {.smaller}
+
+File structure thus becomes more complex, but fundamentally not so different:
+
+```{stata, eval=FALSE}
+global taxdata "/secretos/impuestos"  
+global salarydata "/secretos/salarios"  
+global outputdata "/proyecto/datos/limpiados" // this is where you would write the data you create in this project
+global results "/proyecto/articulo"       // All tables for inclusion in your paper go here
+global programs "/proyecto/codigo"    // All programs (which you might "include") are to be found here
+```
 
 # Exercise 1-1
 
