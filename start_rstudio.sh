@@ -16,7 +16,7 @@ esac
 # build the docker if necessary
 
 docker pull $dockerspace/$repo 
-BUILD=yes
+BUILD=no
 arg1=$1
 
 if [[ $? == 1 ]]
