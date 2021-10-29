@@ -1,10 +1,12 @@
 #!/bin/bash
 PWD=$(pwd)
 repo=${PWD##*/}
-space=larsvilhuber
+dockerspace=larsvilhuber
+
 case $USER in
   vilhuber)
-  WORKSPACE=$HOME/Workspace/git
+  #WORKSPACE=$HOME/Workspace/git
+  WORKSPACE=$PWD
   ;;
   codespace)
   WORKSPACE=/workspaces
@@ -13,22 +15,22 @@ esac
   
 # build the docker if necessary
 
-docker pull $space/$repo 
+docker pull $dockerspace/$repo 
 BUILD=yes
 arg1=$1
 
 if [[ $? == 1 ]]
 then
   ## maybe it's local only
-  docker image inspect $space/$repo > /dev/null
+  docker image inspect $dockerspace/$repo > /dev/null
   [[ $? == 0 ]] && BUILD=no
 fi
 # override
 [[ "$arg1" == "force" ]] && BUILD=yes
 
 if [[ "$BUILD" == "yes" ]]; then
-docker build . -t $space/$repo
-nohup docker push $space/$repo &
+DOCKER_BUILDKIT=1 docker build . -t $dockerspace/$repo
+nohup docker push $dockerspace/$repo &
 fi
 
-docker run -e PASSWORD=testing -v $WORKSPACE:/home/rstudio --rm -p 8787:8787 $space/$repo
+docker run -e PASSWORD=testing -v $WORKSPACE:/home/rstudio --rm -p 8787:8787 $dockerspace/$repo

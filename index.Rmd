@@ -1,9 +1,235 @@
 ---
-title: "Template for R presentations"
-author: "Lars Vilhuber"
-date: "`r sys.Date()`"
+title: "Working with Restricted Access and Big Data"
+author: 
+  - "Lars Vilhuber"
+  - "David Wasser"
+date: "`r Sys.Date()`"
 output: 
   ioslides_presentation:
     incremental: false
     self-included: true
+    widescreen: true
 ---
+
+# Credits
+
+Based on an earlier presentation and tutorial at the [Cornell Day of Data 2021](https://labordynamicsinstitute.github.io/day-of-data-2021/).
+
+## Overview
+
+::: {.columns-2}
+
+:::: {.column}
+
+Part 1:
+
+- Ideal directory and data structure
+- Adapting to confidential / big data
+
+Part 2:
+
+- Secure coding techniques
+- Using templates for reproducibility
+
+::::
+
+:::: {.column}
+Part 3:
+
+- Techniques to handle data extracts / API use
+
+Part 4:
+
+- Documenting what you did
+
+::::
+
+:::
+
+# But first...
+
+## Version your code and your results
+
+- Even in restricted environment, use versioning
+- If available, use `git`
+  - If not available, request `git`
+  - If not, use regular backups (scripted, automated)
+  
+# Part 1 | Ideal structure
+
+## Generic project setup
+
+
+![TIER protocol](images/tier-protocol.png)
+
+[TIER Protocol](https://www.projecttier.org/tier-protocol/specifications-3-0/)
+
+## Basic project setup
+
+::: {.columns-2}
+
+:::: {.column}
+
+**Structure your project**
+
+- Data inputs
+- Data outputs
+- Code
+- Paper/text/etc.
+
+::::
+
+:::: {.column}
+
+**Version your project (`git`)!**
+
+**Track metadata**
+
+- cite articles you reference
+- *cite* data sources you use
+
+::::
+
+:::
+
+## Project setup examples
+
+
+::: {.columns-2}
+
+:::: {.column}
+
+```
+/inputs
+/outputs
+/code
+/paper
+```
+
+:::: 
+
+:::: {.column}
+
+```
+/datos/
+    /brutos
+    /limpiados
+    /finales
+/codigo
+/articulo
+```
+
+::::
+
+:::
+
+It doesn't really matter, as long as it is logical. We will get to how this translates to confidential or big data in a moment!
+
+# Computational Empathy
+
+## Consider how the next person will (be able to) compute
+
+- You don't know who that is
+- You don’t know what they don’t know
+- Will not have any of your add-on packages/ libraries/ etc. pre-installed
+- Don’t force them to do tedious things
+
+It might be "Future You!"
+
+## Streamlining
+
+- Master script preferred
+  - Least amount of manual effort
+- No manual copying of results 
+  - dynamic documents!
+  - Write out/save tables and figures using packages
+- Clear instructions
+- No manual install of packages
+  - Use a script to create all directories, install all necessary packages/requirements/etc.
+
+## Reproducibility
+
+- No manual manipulation 
+  - “Change the parameter to 0.2, then run the code again”
+  - Use *functions*, ado files, programs, macros, subroutines
+  - Use *loops*, parameters, *parameter files* to call those subroutines
+  - Use *placeholders* (globals, macros, libnames, etc.) for common locations ($CONFDATA, $TABLES, $CODE)
+- Compute all numbers in package
+  - No manual calculation of numbers
+- Use cross-platform programming practices
+
+## Reproducibility - Example
+
+::: {.columns-2}
+
+
+:::: {.column}
+
+**R**: Use functions to combine paths (and/or use forward slashes), packages to make code more portable.
+
+<div class="red2">
+```
+basepath <- rprojroot::find_root(rprojroot::has_file("README.md"))
+data <- read.dta(file.path(basepath,"path","data.dta"))
+```
+</div>
+::::
+
+:::: {.column}
+
+**Stata**: *always* use forward slashes, even on Windows
+
+<div class="blue2">
+
+```
+global data "/my/computer"
+use "$data/path/data.dta"
+```
+</div>
+
+::::
+
+:::
+
+# Exercise 1-1
+
+## Set up a project structure
+
+<div class="blue3">
+
+> Follow the lesson learned here and create a basic project structure
+> 1. FORK the following repository: [labordynamicsinstitute/test-part-1-1](https://github.com/labordynamicsinstitute/test-part-1-1)
+> 2. Populate it with the directory structure
+> 3. Push to your Github repository (your own fork)
+
+Did that work? 
+</div>
+
+## Populate the project structure
+
+<div class="blue3">
+> 4. Add a README describing the purpose of each directory
+> 5. Push to your Github repository
+
+Did that work?
+</div>
+
+# Exercise 1-2
+
+## Make a portable repository
+
+<div class="blue3">
+Once you are done, at most one line can be changed to make it run!
+
+> 1. FORK the following repository: [labordynamicsinstitute/test-part-1-2](https://github.com/labordynamicsinstitute/test-part-1-2)
+> 2. Modify the code, either Stata or R.
+> 3. Push to your Github repository (your own fork)
+
+</div>
+
+Do you think your code will work on somebody else computer or in the cloud?
+
+
+
+# Next: [Part 2](part2.html)
+
