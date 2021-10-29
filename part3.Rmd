@@ -313,6 +313,55 @@ So what happens when the API (inevitably) changes, breaks, is shut down, or othe
 
 Because we have the cached file, we are safe from such breaks in the API. In fact, when providing our replication package, we should (if allowed by license) provide the cached file, yet not remove the part about downloading it. 
 
+# Quick Summary
+
+## Tips and Tricks
+
+- Have the ability to test your code
+  - Build tests into your code
+- Use intermediate files / split your processing into pieces
+- Check for intermediate files.
+
+```{r,eval=FALSE}
+# R:
+if ( ! file.exists(file.path(intermediate,”step1.Rdata”)) {
+    prepare_file(in=“step0”,out=“step1”,outpath=intermediate)
+} else {
+   message(“File exists, skipping processing”)
+}
+```
+```{stata,eval=FALSE}
+/* Stata */
+capture confirm file “$intermediate/step1.dta"
+  if _rc!=0 {
+    process_file step0 step2 $intermediate
+}  else {
+    display " File exists, skipping processing "
+  }
+```
+
+## Tips and Tricks 2
+
+### Cleanly separate Confidential data and public use data
+
+- You are going to have to provide copies of the public use data without compromising confidentiality
+
+### Cleanly separate Confidential parameters and the rest of the code
+
+- Reduces need to redact programs
+
+## Tips and Tricks 3
+
+**Cleanly separate and preserve**
+
+- Data acquisition code
+  - Or instructions, needs to be re-executable
+- Confidential parameters and the rest of the code
+  - Reduces need to redact programs
+  - API keys and the like
+- Intermediate data extracts
+  - When its impossible to exactly re-extract data
+  - When data extract takes a long time
 
 # Exercise 3
 
