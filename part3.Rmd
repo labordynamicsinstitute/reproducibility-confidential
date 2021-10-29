@@ -71,7 +71,7 @@ Sys.getenv("CENSUS_API_KEY")
 To reproduce this, [obtain a Census API key](http://api.census.gov/data/key_signup.html), and run the code above. We can then set the API key for the `tidycensus` package.
 
 ```{r loadkey}
-readRenviron("~/.Renviron")
+if ( file.exists("~/.Renviron") ) { readRenviron("~/.Renviron") }
 census_api_key(Sys.getenv("CENSUS_API_KEY"))
 ```
 
