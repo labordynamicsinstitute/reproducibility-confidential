@@ -213,13 +213,13 @@ pkgTest(&quot;tidycensus&quot;)</pre>
 
 <pre >## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</pre>
 
-<pre >## ✓ tibble  3.1.2     ✓ stringr 1.4.0
-## ✓ tidyr   1.1.3     ✓ forcats 0.5.1
-## ✓ purrr   0.3.4</pre>
+<pre >## ✔ tibble  3.1.2     ✔ stringr 1.4.0
+## ✔ tidyr   1.1.3     ✔ forcats 0.5.1
+## ✔ purrr   0.3.4</pre>
 
 <pre >## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</pre>
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</pre>
 
 <pre >## [1] &quot;OK&quot;</pre>
 
@@ -235,7 +235,7 @@ Sys.getenv(&quot;CENSUS_API_KEY&quot;)</pre>
 
 <p>To reproduce this, <a href='http://api.census.gov/data/key_signup.html' title=''>obtain a Census API key</a>, and run the code above. We can then set the API key for the <code>tidycensus</code> package.</p>
 
-<pre class = 'prettyprint lang-r'>readRenviron(&quot;~/.Renviron&quot;)
+<pre class = 'prettyprint lang-r'>if ( file.exists(&quot;~/.Renviron&quot;) ) { readRenviron(&quot;~/.Renviron&quot;) }
 census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 
 <pre >## To install your API key for use in future sessions, run this function with `install = TRUE`.</pre>
@@ -260,9 +260,9 @@ census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 time.age10</pre>
 
 <pre >##    user  system elapsed 
-##   0.039   0.003   0.693</pre>
+##   0.039   0.003   1.134</pre>
 
-<p>it took <strong>0.693 seconds</strong>. But it only generated 52 observations!</p>
+<p>it took <strong>1.134 seconds</strong>. But it only generated 52 observations!</p>
 
 <pre class = 'prettyprint lang-r'># inspect the data
 head(age10)</pre>
@@ -311,9 +311,9 @@ age10block &lt;- get_decennial(geography = &quot;block&quot;,state=&quot;NY&quot
 <pre class = 'prettyprint lang-r'># time it took to run this
 time.block</pre>
 
-<pre >## Time difference of 0.8597481 secs</pre>
+<pre >## Time difference of 1.000868 secs</pre>
 
-<p><strong>0.859748125076294 seconds</strong>. It generated 3082 observations.</p>
+<p><strong>1.00086808204651 seconds</strong>. It generated 3082 observations.</p>
 
 <p>For ONE county.</p>
 
@@ -562,13 +562,13 @@ generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
   }
 }</pre>
 
-<pre >## Directory /home/rstudio/data already present!</pre>
+<pre >## Directory /github/workspace/data created!</pre>
 
-<pre >## Directory /home/rstudio/data/raw already present!</pre>
+<pre >## Directory /github/workspace/data/raw created!</pre>
 
-<pre >## Directory /home/rstudio/data/cache already present!</pre>
+<pre >## Directory /github/workspace/data/cache created!</pre>
 
-<pre >## Directory /home/rstudio/data/generated already present!</pre>
+<pre >## Directory /github/workspace/data/generated created!</pre>
 
 <p>Those steps would normally go into the header of our reproducible document!</p>
 
@@ -579,7 +579,7 @@ generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
 <pre class = 'prettyprint lang-r'>system.time(saveRDS(blocks,file = file.path(cache,&quot;block_median.Rds&quot;)))</pre>
 
 <pre >##    user  system elapsed 
-##   0.190   0.000   0.217</pre>
+##   0.188   0.000   0.189</pre>
 
 <pre class = 'prettyprint lang-r'>rm(blocks)
 start.time &lt;- Sys.time()
@@ -587,7 +587,7 @@ blocks &lt;- readRDS(file=file.path(cache,&quot;block_median.Rds&quot;))
 read.time &lt;- Sys.time() - start.time
 read.scaled &lt;- read.time / counties.to.query * nrow(fips_codes)</pre>
 
-<p>Assuming that scaling up to the full filesize is linear, it would take <strong>8.66 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3052.06 seconds</strong> for using the API each time.</p>
+<p>Assuming that scaling up to the full filesize is linear, it would take <strong>8.35 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3052.06 seconds</strong> for using the API each time.</p>
 
 </article></slide><slide class=""><hgroup><h2>Refinements</h2></hgroup><article  id="refinements">
 
