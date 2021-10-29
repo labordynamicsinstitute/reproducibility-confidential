@@ -260,9 +260,9 @@ census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
 time.age10</pre>
 
 <pre >##    user  system elapsed 
-##   0.062   0.000   0.906</pre>
+##   0.061   0.008   0.655</pre>
 
-<p>it took <strong>0.906 seconds</strong>. But it only generated 52 observations!</p>
+<p>it took <strong>0.655 seconds</strong>. But it only generated 52 observations!</p>
 
 <pre class = 'prettyprint lang-r'># inspect the data
 head(age10)</pre>
@@ -311,9 +311,9 @@ age10block &lt;- get_decennial(geography = &quot;block&quot;,state=&quot;NY&quot
 <pre class = 'prettyprint lang-r'># time it took to run this
 time.block</pre>
 
-<pre >## Time difference of 1.399113 secs</pre>
+<pre >## Time difference of 0.7496202 secs</pre>
 
-<p><strong>1.39911293983459 seconds</strong>. It generated 3082 observations.</p>
+<p><strong>0.749620199203491 seconds</strong>. It generated 3082 observations.</p>
 
 <p>For ONE county.</p>
 
@@ -485,19 +485,19 @@ elapsed.time &lt;- end.time - start.time</pre>
 
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
-<p>That took <strong>30.7 seconds</strong> for 30 of 3237 counties, yielding 84042 records.</p>
+<p>That took <strong>2.08 seconds</strong> for 30 of 3237 counties, yielding 84042 records.</p>
 
 <p>You could estimate the total time as:</p>
 
 <pre class = 'prettyprint lang-r'>elapsed.scale &lt;- elapsed.time / counties.to.query * nrow(fips_codes)
 elapsed.scale</pre>
 
-<pre >## Time difference of 3312.996 secs</pre>
+<pre >## Time difference of 224.7671 mins</pre>
 
 <p>yielding</p>
 
 <blockquote>
-<p><strong>55.2</strong> minutes</p>
+<p><strong>3.7</strong> minutes</p>
 </blockquote>
 
 <p>Would you want to incur that time every time you run the code for the entire country?</p>
@@ -510,7 +510,7 @@ elapsed.scale</pre>
 
 <ul>
 <li>we reduced the number down to a feasible number (<strong>30</strong> counties)</li>
-<li>estimated the total runtime (<strong>55.2</strong> minutes)</li>
+<li>estimated the total runtime (<strong>3.7</strong> minutes)</li>
 </ul>
 
 <p>Ideally, we would use two values for the parameter to control this: a really small number to test code for functionality, and a larger number to get some meaningful results.</p>
@@ -579,7 +579,7 @@ generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
 <pre class = 'prettyprint lang-r'>system.time(saveRDS(blocks,file = file.path(cache,&quot;block_median.Rds&quot;)))</pre>
 
 <pre >##    user  system elapsed 
-##   0.288   0.000   0.287</pre>
+##   0.287   0.000   0.287</pre>
 
 <pre class = 'prettyprint lang-r'>rm(blocks)
 start.time &lt;- Sys.time()
@@ -587,7 +587,7 @@ blocks &lt;- readRDS(file=file.path(cache,&quot;block_median.Rds&quot;))
 read.time &lt;- Sys.time() - start.time
 read.scaled &lt;- read.time / counties.to.query * nrow(fips_codes)</pre>
 
-<p>Assuming that scaling up to the full filesize is linear, it would take <strong>15.24 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3313 seconds</strong> for using the API each time.</p>
+<p>Assuming that scaling up to the full filesize is linear, it would take <strong>16.61 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>224.77 seconds</strong> for using the API each time.</p>
 
 </article></slide><slide class=""><hgroup><h2>Refinements</h2></hgroup><article  id="refinements">
 
@@ -695,7 +695,7 @@ capture confirm file “$intermediate/step1.dta&quot;
 <p>Run this whole document on your own computer or in the cloud!</p>
 
 <ul>
-<li>This was run on a Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, and took <strong>30.7 seconds</strong> for 30 counties.</li>
+<li>This was run on a Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, and took <strong>2.08 seconds</strong> for 30 counties.</li>
 <li>How long does it take to run on yours?</li>
 <li>Clone this repository: <a href='https://github.com/labordynamicsinstitute/reproducibility-confidential' title=''>labordynamicsinstitute/reproducibility-confidential</a></li>
 <li>Open the <code>part3.Rmd</code> document, and <code>knit</code>.</li>
