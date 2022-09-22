@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Part 3: Safe and efficient big data access</title>
+  <title>Creating reproducible packages when data are confidential: Bonus slides</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -9,7 +9,7 @@
 
 
 
-  <meta name="date" content="2021-10-29" />
+  <meta name="date" content="2022-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Part 3: Safe and efficient big data access',
+                title: 'Creating reproducible packages when data are confidential: Bonus slides',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -172,540 +172,56 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2021-10-29</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2022-09-22</p>
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Intro</h2></hgroup><article  id="intro">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Use cross-platform programming practices</h2></hgroup><article  id="use-cross-platform-programming-practices">
 
-<p>This document intends to demonstrate two methods of accessing big (or confidential) data. The first seems at first glance to be the most efficient way of doing it. But once you factor in time or cost constraints, there will be issues. The second method therefore breaks down the data and processing stream into separate components, and allows to separate the time consuming part from other reproducible parts.</p>
+</article></slide><slide class=""><hgroup><h2>Cross-platform programming practices 1</h2></hgroup><article  id="cross-platform-programming-practices-1">
 
-</article></slide><slide class=""><hgroup><h2>Context</h2></hgroup><article  id="context">
+<p><strong>Use programming-language specific code as much as possible</strong></p>
 
-<p>We will use U.S. Census Bureau data (American Community Survey data) through an API. Downloading the entire corpus of ACS data would consume multiple 100 GB, but the API allows us to slice and dice the data. The example we will use will artificially reduce the amount of data for illustrative purposes, but we identify how this simple example becomes a &ldquo;big data&rdquo; example.</p>
+<p>Avoid</p>
 
-</article></slide><slide class=""><hgroup><h2>Reproducibility setup</h2></hgroup><article  id="reproducibility-setup">
+<pre class = 'prettyprint lang-r'>system(&quot;unzip C:\data\myfile.zip&quot;)</pre>
 
-<p>To make this whole setup reproducible, you can use several methods. For instance, you could use packages such as <code>checkpoint</code> to provide a reproducible environment. Please consult the <a href='https://cran.r-project.org/web/packages/checkpoint/vignettes/checkpoint.html' title=''>Checkpoint vignette</a>.</p>
+<p>or</p>
 
-<p>Here, we have used a <a href='https://hub.docker.com/r/larsvilhuber/reproducibility-confidential' title=''><strong>Docker image</strong></a> configured to use the <a href='https://packagemanager.rstudio.com/client/' title=''>Rstudio Package Manager</a>, fixed at <strong>2021-10-01</strong>.</p>
+<pre class = 'prettyprint lang-stata'>shell unzip &quot;C:\data\myfile.zip&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Requirements</h2></hgroup><article  id="requirements" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Cross-platform programming practices 1</h2></hgroup><article  id="cross-platform-programming-practices-1-1">
 
-<p>Other than a number of R requirements for general processing (<code>tidyverse</code>, citation), we will rely on the <code>tidycensus</code> package (citation here).</p>
+<p>Most languages have appropriate code:</p>
 
-<pre class = 'prettyprint lang-r'>pkgTest &lt;- function(x)
-{
-    if (!require(x,character.only = TRUE))
-    {
-        install.packages(x,dep=TRUE)
-        if(!require(x,character.only = TRUE)) stop(&quot;Package not found&quot;)
-    }
-    return(&quot;OK&quot;)
-}
-pkgTest(&quot;tidycensus&quot;)</pre>
+<p>R:</p>
 
-<pre >## [1] &quot;OK&quot;</pre>
+<pre class = 'prettyprint lang-r'>unzip(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
+      junkpaths = FALSE, exdir = &quot;.&quot;, unzip = &quot;internal&quot;,
+      setTimes = FALSE)</pre>
 
-<pre class = 'prettyprint lang-r'>pkgTest(&quot;tidyverse&quot;)</pre>
+<p>Stata:</p>
 
-<pre >## Loading required package: tidyverse</pre>
+<pre class = 'prettyprint lang-stata'>unzipfile &quot;zipfile.zip&quot; [, replace]</pre>
 
-<pre >## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</pre>
+</article></slide><slide class=""><hgroup><h2>Cross-platform programming practices 2</h2></hgroup><article  id="cross-platform-programming-practices-2">
 
-<pre >## ✔ tibble  3.1.2     ✔ stringr 1.4.0
-## ✔ tidyr   1.1.3     ✔ forcats 0.5.1
-## ✔ purrr   0.3.4</pre>
+<p>Use neutral pathnames (mostly forward slashes)</p>
 
-<pre >## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</pre>
+<div class="columns-2">
+<div class="column">
+<p><strong>R</strong>: Use functions to combine paths (and/or use forward slashes), packages to make code more portable.</p>
 
-<pre >## [1] &quot;OK&quot;</pre>
+<div class="red2">
+<pre >basepath &lt;- rprojroot::find_root(rprojroot::has_file(&quot;README.md&quot;))
+data &lt;- read.dta(file.path(basepath,&quot;path&quot;,&quot;data.dta&quot;))</pre></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Confidential parameters</h2></hgroup><article  id="confidential-parameters">
+<div class="column">
+<p><strong>Stata</strong>: <em>always</em> use forward slashes, even on Windows</p>
 
-<p>Here, we use the <code>~/.Renviron</code> file (in my home directory, outside of the project directory), though I won’t show you my actual file. Here’s what the package documentation says</p>
-
-<pre class = 'prettyprint lang-r'>census_api_key(&quot;111111abc&quot;, overwrite = TRUE, install = TRUE)
-# First time, reload your environment so you can use the key without restarting R.
-readRenviron(&quot;~/.Renviron&quot;)
-# You can check it with:
-Sys.getenv(&quot;CENSUS_API_KEY&quot;)</pre>
-
-<p>To reproduce this, <a href='http://api.census.gov/data/key_signup.html' title=''>obtain a Census API key</a>, and run the code above. We can then set the API key for the <code>tidycensus</code> package.</p>
-
-<pre class = 'prettyprint lang-r'>if ( file.exists(&quot;~/.Renviron&quot;) ) { readRenviron(&quot;~/.Renviron&quot;) }
-census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))</pre>
-
-<pre >## To install your API key for use in future sessions, run this function with `install = TRUE`.</pre>
-
-</article></slide><slide class=""><hgroup><h2>Basic example</h2></hgroup><article  id="basic-example">
-
-<p>We’re going to follow the &quot;<a href='https://walker-data.com/tidycensus/articles/basic-usage.html' title=''>Basic Usage tutorial</a> from the <code>tidycensus</code> website, and compute the median age by state for 2010:</p>
-
-<pre class = 'prettyprint lang-r'>time.age10 &lt;- system.time(age10 &lt;- get_decennial(geography = &quot;state&quot;,
-                       variables = &quot;P013001&quot;,
-                       year = 2010))</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<p>That was fast:</p>
-
-<pre class = 'prettyprint lang-r'># time it took to run this
-time.age10</pre>
-
-<pre >##    user  system elapsed 
-##   0.039   0.003   1.134</pre>
-
-<p>it took <strong>1.134 seconds</strong>. But it only generated 52 observations!</p>
-
-<pre class = 'prettyprint lang-r'># inspect the data
-head(age10)</pre>
-
-<pre >## # A tibble: 6 x 4
-##   GEOID NAME       variable value
-##   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt;
-## 1 01    Alabama    P013001   37.9
-## 2 02    Alaska     P013001   33.8
-## 3 04    Arizona    P013001   35.9
-## 4 05    Arkansas   P013001   37.4
-## 5 06    California P013001   35.2
-## 6 22    Louisiana  P013001   35.8</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<pre class = 'prettyprint lang-r'># some stats
-summary(age10)</pre>
-
-<pre >##     GEOID               NAME             variable             value      
-##  Length:52          Length:52          Length:52          Min.   :29.20  
-##  Class :character   Class :character   Class :character   1st Qu.:36.20  
-##  Mode  :character   Mode  :character   Mode  :character   Median :37.45  
-##                                                           Mean   :37.49  
-##                                                           3rd Qu.:38.80  
-##                                                           Max.   :42.70</pre>
-
-</article></slide><slide class=""><hgroup><h2>Bigger example</h2></hgroup><article  id="bigger-example">
-
-<p>What if we used a bit more detail for this? Let’s see this for Tompkins county (FIPS code &ldquo;36109&rdquo;)</p>
-
-<pre class = 'prettyprint lang-r'>start.time &lt;- Sys.time()
-age10block &lt;- get_decennial(geography = &quot;block&quot;,state=&quot;NY&quot;, county=&quot;109&quot;, show_call=FALSE,
-                       variables = &quot;P013001&quot;,year = 2010)</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre class = 'prettyprint lang-r'>time.block &lt;- Sys.time() - start.time</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<p>That took</p>
-
-<pre class = 'prettyprint lang-r'># time it took to run this
-time.block</pre>
-
-<pre >## Time difference of 1.000868 secs</pre>
-
-<p><strong>1.00086808204651 seconds</strong>. It generated 3082 observations.</p>
-
-<p>For ONE county.</p>
-
-<p>There are 3237 counties in total.</p>
-
-</article></slide><slide class=""><hgroup><h2>Big data</h2></hgroup><article  id="big-data">
-
-<p>In total, there are</p>
-
-<pre class = 'prettyprint lang-r'>nrow(fips_codes)</pre>
-
-<pre >## [1] 3237</pre>
-
-<p>counties.</p>
-
-<p>But let’s limit ourselves:</p>
-
-<pre class = 'prettyprint lang-r'># prepare the next block
-counties.to.query &lt;- 30
-# if we wanted all of this, we would replace the number with &quot;nrow(fips_codes)&quot;
-# counties.to.query &lt;- nrow(fips_codes)</pre>
-
-<p>Let’s see how long this takes for the first 30 counties.</p>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<pre class = 'prettyprint lang-r'># tidycensus/Census API forces to loop over counties
-start.time &lt;- Sys.time()
-blocks &lt;- NA
-for (row in 1:counties.to.query ) {
-  county &lt;- fips_codes[row,&quot;county_code&quot;]
-  state  &lt;- fips_codes[row,&quot;state&quot;]
-  thisblock &lt;- get_decennial(geography = &quot;block&quot;,
-                             state=state,
-                             county=county,
-                       variables = &quot;P013001&quot;,
-                       year = 2010)
-  if ( row == 1 ) {
-    blocks &lt;- thisblock
-    rm(thisblock)
-  } else {
-    blocks &lt;- bind_rows(blocks,thisblock)
-    rm(thisblock)
-  }
-}</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre >## Getting data from the 2010 decennial Census</pre>
-
-<pre >## Using Census Summary File 1</pre>
-
-<pre class = 'prettyprint lang-r'>end.time &lt;- Sys.time()
-elapsed.time &lt;- end.time - start.time</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<p>That took <strong>28.29 seconds</strong> for 30 of 3237 counties, yielding 84042 records.</p>
-
-<p>You could estimate the total time as:</p>
-
-<pre class = 'prettyprint lang-r'>elapsed.scale &lt;- elapsed.time / counties.to.query * nrow(fips_codes)
-elapsed.scale</pre>
-
-<pre >## Time difference of 3052.063 secs</pre>
-
-<p>yielding</p>
-
-<blockquote>
-<p><strong>50.9</strong> minutes</p>
-</blockquote>
-
-<p>Would you want to incur that time every time you run the code for the entire country?</p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Solution 1</h2></hgroup><article  id="solution-1">
-
-</article></slide><slide class=""><hgroup><h2>Solution 1: sampling</h2></hgroup><article  id="solution-1-sampling">
-
-<p>We already implemented the first solution, which is useful while you are developing this:</p>
-
-<ul>
-<li>we reduced the number down to a feasible number (<strong>30</strong> counties)</li>
-<li>estimated the total runtime (<strong>50.9</strong> minutes)</li>
-</ul>
-
-<p>Ideally, we would use two values for the parameter to control this: a really small number to test code for functionality, and a larger number to get some meaningful results.</p>
-
-<p>For the final run, we would set it to run on the full scope of the problem.</p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Solution 2</h2></hgroup><article  id="solution-2">
-
-</article></slide><slide class=""><hgroup><h2>Solution 2: Intermediate files</h2></hgroup><article  id="solution-2-intermediate-files">
-
-<p>The second solution is to break the problem apart. Let’s see how long it takes to save and to read the resulting file. First, let’s be clear about the directory structure here:</p>
-
-<pre class = 'prettyprint lang-r'>basedata &lt;- file.path(basepath,&quot;data&quot;)
-rawdata  &lt;- file.path(basedata,&quot;raw&quot;)
-cache    &lt;- file.path(basedata,&quot;cache&quot;)
-generated&lt;- file.path(basedata,&quot;generated&quot;)</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<p>We’ve defined three directories:</p>
-
-<ul>
-<li><code>basedata</code> to house all the data</li>
-<li><code>rawdata</code> to house any data we may have (manually) downloaded from somewhere else</li>
-<li><code>cache</code> to house intermediate data which can be programmatically downloaded, but maybe need a temporary home</li>
-<li><code>generated</code> to house any data we generate by modifying either <code>rawdata</code> or <code>cache</code> data.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Documentation!</h2></hgroup><article  id="documentation">
-
-<p>Our README should describe this, and could also specify that all data in <code>cache</code> and <code>generated</code> can be recreated, given enough time.</p>
-
-<p>We’re going to use the cache to speed up processing for subsequent runs during testing and possibly for demonstration purposes.</p>
-
-</article></slide><slide class=""><hgroup><h2>What is a cache?</h2></hgroup><article  id="what-is-a-cache">
-
-<img src='data:image/png;base64,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' title='fig:'/><p class='caption'>cache definition</p>
-
-</article></slide><slide class=""><hgroup><h2>Reproducibility again</h2></hgroup><article  id="reproducibility-again" class="smaller">
-
-<p>Let’s make sure these directories exist:</p>
-
-<pre class = 'prettyprint lang-r'>for ( dir in list(basedata,rawdata,cache,generated) ) {
-  if (file.exists(dir)) {
-    message(paste0(&quot;Directory &quot;,dir,&quot; already present!&quot;))
-  } else {
-    dir.create(file.path(dir),recursive=TRUE)
-    message(paste0(&quot;Directory &quot;,dir,&quot; created!&quot;))
-  }
-}</pre>
-
-<pre >## Directory /github/workspace/data created!</pre>
-
-<pre >## Directory /github/workspace/data/raw created!</pre>
-
-<pre >## Directory /github/workspace/data/cache created!</pre>
-
-<pre >## Directory /github/workspace/data/generated created!</pre>
-
-<p>Those steps would normally go into the header of our reproducible document!</p>
-
-</article></slide><slide class=""><hgroup><h2>Timing</h2></hgroup><article  id="timing">
-
-<p>Let’s move to the timing:</p>
-
-<pre class = 'prettyprint lang-r'>system.time(saveRDS(blocks,file = file.path(cache,&quot;block_median.Rds&quot;)))</pre>
-
-<pre >##    user  system elapsed 
-##   0.188   0.000   0.189</pre>
-
-<pre class = 'prettyprint lang-r'>rm(blocks)
-start.time &lt;- Sys.time()
-blocks &lt;- readRDS(file=file.path(cache,&quot;block_median.Rds&quot;))
-read.time &lt;- Sys.time() - start.time
-read.scaled &lt;- read.time / counties.to.query * nrow(fips_codes)</pre>
-
-<p>Assuming that scaling up to the full filesize is linear, it would take <strong>8.35 seconds</strong> to read back the entire universe of blocks from a cached file, compared to <strong>3052.06 seconds</strong> for using the API each time.</p>
-
-</article></slide><slide class=""><hgroup><h2>Refinements</h2></hgroup><article  id="refinements">
-
-<p>How could this be even more refined? For one, we could test whether the cache file has already been generated in the download section:</p>
-
-<pre class = 'prettyprint lang-r'># not evaluated
-cache.blocks &lt;- file.path(cache,&quot;block_median.Rds&quot;)
-
-if ( file.exists(cache.blocks)) {
-  blocks &lt;- readRDS(cache.blocks)
-} else {
-  readin_from_api(outfile=cache.blocks)
-}</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
-
-<p>Now we can routinely process this, without having to worry about that pesky download part.<a id="fnref1" href="#fn1"><sup>1</sup></a></p>
-
-</article></slide><slide class=""><hgroup><h2>Generalizing</h2></hgroup><article  id="generalizing">
-
-<p>Note that the above works for any kind of programming language (Stata, SPSS, etc.). It also works and should be used for any large-ish files, and may percolate through an entire job stream.</p>
-
-</article></slide><slide class=""><hgroup><h2>Robustness</h2></hgroup><article  id="robustness">
-
-<p>So what happens when the API (inevitably) changes, breaks, is shut down, or otherwise stops working?</p>
-
-<blockquote>
-<p><strong>Nothing.</strong></p>
-</blockquote>
-
-<p>Because we have the cached file, we are safe from such breaks in the API. In fact, when providing our replication package, we should (if allowed by license) provide the cached file, yet not remove the part about downloading it.</p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Quick Summary</h2></hgroup><article  id="quick-summary">
-
-</article></slide><slide class=""><hgroup><h2>Tips and Tricks</h2></hgroup><article  id="tips-and-tricks">
-
-<ul>
-<li>Have the ability to test your code
-
-<ul>
-<li>Build tests into your code</li>
-</ul></li>
-<li>Use intermediate files / split your processing into pieces</li>
-<li>Check for intermediate files.</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'># R:
-if ( ! file.exists(file.path(intermediate,”step1.Rdata”)) {
-    prepare_file(in=“step0”,out=“step1”,outpath=intermediate)
-} else {
-   message(“File exists, skipping processing”)
-}</pre>
-
-<pre class = 'prettyprint lang-stata'>/* Stata */
-capture confirm file “$intermediate/step1.dta&quot;
-  if _rc!=0 {
-    process_file step0 step2 $intermediate
-}  else {
-    display &quot; File exists, skipping processing &quot;
-  }</pre>
-
-</article></slide><slide class=""><hgroup><h2>Tips and Tricks 2</h2></hgroup><article  id="tips-and-tricks-2">
-
-<h3>Cleanly separate Confidential data and public use data</h3>
-
-<ul>
-<li>You are going to have to provide copies of the public use data without compromising confidentiality</li>
-</ul>
-
-<h3>Cleanly separate Confidential parameters and the rest of the code</h3>
-
-<ul>
-<li>Reduces need to redact programs</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Tips and Tricks 3</h2></hgroup><article  id="tips-and-tricks-3">
-
-<p><strong>Cleanly separate and preserve</strong></p>
-
-<ul>
-<li>Data acquisition code
-
-<ul>
-<li>Or instructions, needs to be re-executable</li>
-</ul></li>
-<li>Confidential parameters and the rest of the code
-
-<ul>
-<li>Reduces need to redact programs</li>
-<li>API keys and the like</li>
-</ul></li>
-<li>Intermediate data extracts
-
-<ul>
-<li>When its impossible to exactly re-extract data</li>
-<li>When data extract takes a long time</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercise 3</h2></hgroup><article  id="exercise-3">
-
-</article></slide><slide class=""><hgroup><h2>Exercise 3-1</h2></hgroup><article  id="exercise-3-1">
-
-<div class="blue3">
-<p>Run this whole document on your own computer or in the cloud!</p>
-
-<ul>
-<li>This was run on a AMD Ryzen 9 3900X 12-Core Processor, and took <strong>28.29 seconds</strong> for 30 counties.</li>
-<li>How long does it take to run on yours?</li>
-<li>Clone this repository: <a href='https://github.com/labordynamicsinstitute/reproducibility-confidential' title=''>labordynamicsinstitute/reproducibility-confidential</a></li>
-<li>Open the <code>part3.Rmd</code> document, and <code>knit</code>.</li>
-</ul>
-
-<p>Do you understand the various parts?</p>
-
-<p>What is the connection with confidential data?</p></div>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Next <a href='part4.pdf' title=''>Part 4</a></h2></hgroup><article  id="next-part-4"></article></slide>
+<div class="blue2">
+<pre >global data &quot;/my/computer&quot;
+use &quot;$data/path/data.dta&quot;</pre></div></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>

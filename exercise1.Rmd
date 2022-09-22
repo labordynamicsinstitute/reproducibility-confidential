@@ -1,0 +1,51 @@
+---
+title: "Creating reproducible packages when data are confidential: Exercise 1"
+author: 
+  - "Lars Vilhuber"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+    widescreen: true
+---
+
+# Exercise 1-1
+
+## Set up a project structure
+
+<div class="blue3">
+
+> Follow the lesson learned here and create a basic project structure
+
+> 1. FORK the following repository: [labordynamicsinstitute/test-part-1-1](https://github.com/labordynamicsinstitute/test-part-1-1)
+> 2. Populate it with the directory structure
+> 3. Push to your Github repository (your own fork)
+
+> Did that work? 
+</div>
+
+## Populate the project structure
+
+<div class="blue3">
+> 4. Add a README describing the purpose of each directory
+> 5. Push to your Github repository
+
+> Did that work?
+</div>
+
+# Exercise 1-2
+
+## Make a portable repository
+
+<div class="blue3">
+Once you are done, at most one line can be changed to make it run!
+
+> 1. FORK the following repository: [labordynamicsinstitute/test-part-1-2](https://github.com/labordynamicsinstitute/test-part-1-2)
+> 2. Modify the code, either Stata or R.
+> 3. Push to your Github repository (your own fork)
+
+</div>
+
+Do you think your code will work on somebody else's computer or in the cloud?
+

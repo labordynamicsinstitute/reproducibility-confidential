@@ -13,5 +13,6 @@ source("libraries.R")
 #run render
 
 rmarkdown::render("index.Rmd")
-rmarkdown::render("part2.Rmd")
-rmarkdown::render("part3.Rmd")
+#rmarkdown::render("part2.Rmd")
+#rmarkdown::render("part3.Rmd")
+rmarkdown::render("bonus.Rmd")

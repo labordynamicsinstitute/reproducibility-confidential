@@ -1,6 +1,6 @@
 #!/bin/bash
 PWD=$(pwd)
-repo=${PWD##*/}
+repo=reproducibility-confidential
 dockerspace=larsvilhuber
 
 case $USER in
