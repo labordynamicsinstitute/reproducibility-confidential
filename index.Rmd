@@ -16,41 +16,17 @@ Based on an earlier presentation and tutorial at the [Cornell Day of Data 2021](
 
 ## Overview
 
-::: {.columns-2}
+| | | 
+|----|-----|
+| [Part 1:](#8)  |  When to start |
+| [Part 2:](#15) | - Ideal directory and data structure <br/>- Adapting to confidential / big data |
+| [Part 3:](#25) | - Ideal programming practices <br/> - Secure coding techniques|
+| [Part 4:](#48) | - Documenting what you did <br/> - When to document |
 
-:::: {.column}
-
-[Part 1:](#8) 
-
-- When to start
-
-[Part 2:](#15)
-
-- Ideal directory and data structure
-- Adapting to confidential / big data
-
-
-::::
-
-:::: {.column}
-
-Part 3:
-
-- Ideal programming practices
-- Secure coding techniques
-
-Part 4:
-
-- Documenting what you did
-- When to document 
-
-::::
-
-:::
 
 # But first...
 
-## Version your code and your results
+## Please Version your code and your results
 
 - Even in restricted environment, use versioning
 - If available, use `git`
@@ -197,20 +173,16 @@ if $step3 == 1  do "$code/03_figures.do"
 ## Project setup examples
 
 
-::: {.columns-2}
-
-:::: {.column}
-
+<table width="100%">
+<tr>
+<td width="50%">
 ```
 /inputs
 /outputs
 /code
 /paper
 ```
-
-:::: 
-
-:::: {.column}
+</td><td>
 
 ```
 /datos/
@@ -220,10 +192,7 @@ if $step3 == 1  do "$code/03_figures.do"
 /codigo
 /articulo
 ```
-
-::::
-
-:::
+</td></tr></table>
 
 It doesn't really matter, as long as it is logical. 
 
@@ -257,9 +226,9 @@ It doesn't really matter, as long as it is logical.
 ## Project setup examples
 
 
-::: {.columns-2}
-
-:::: {.column}
+<table width="100%">
+<tr>
+<td width="50%">
 
 This may no longer work:
 
@@ -271,12 +240,8 @@ This may no longer work:
 /codigo
 /articulo
 ```
-
-::::
-
-
-:::: {.column}
-
+</td>
+<td>
 This may be what it looks like:
 
 ```
@@ -292,9 +257,7 @@ This may be what it looks like:
      /salarios       (read-only)
 ```
 
-:::: 
-
-:::
+</td></tr></table>
 
 How do we handle directories outside of the project space?
 
@@ -718,27 +681,14 @@ Examples include
 
 ## Three parts to README: timing
 
-::: {.columns-2}
+| | |
+|---------|----------|
+|- Data availability (and citations):|**Start of project, edit at the end**|
+|- Computer requirements: | Middle of project|
+|- Description of processing: | Middle of project|
+| | |
 
-:::: {.column}
-
-- Data availability (and citations)
-- Computer requirements
-- Description of processing
-
-::::
-
-:::: {.column}
-
-- Start of project, edit at the end
-- Middle of project
-- Middle of project
-
-::::
-
-:::
-
-with the end really just a last read.
+with the end really just a last read/edit.
 
 # Wrapping it all up
 
