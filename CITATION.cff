@@ -4,7 +4,11 @@
 cff-version: 1.2.0
 title: >-
   Creating reproducible packages when data are confidential
-message: Presented at the 2022 FSRDC Conference. The opinions expressed in this talk are solely the authors, and do not represent the views of the U.S. Census Bureau, the American Economic Association, or any of the funding agencies.
+message: >-
+  Presented at the 2022 FSRDC Conference. The opinions 
+  expressed in this talk are solely the authors, and do not 
+  represent the views of the U.S. Census Bureau, the American 
+  Economic Association, or any of the funding agencies.
 type: presentation
 authors:
   - given-names: Lars
