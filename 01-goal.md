@@ -23,7 +23,7 @@ data/
 run.sh
 ```
 
-## Files
+## Files {transition="fade" }
 
 **All code**, whether used in RDC or not
 
@@ -46,7 +46,7 @@ data/
 run.sh
 ```
 
-## Files
+## Files {transition="fade" }
 
 **All public data**, whether used in RDC or not
 
