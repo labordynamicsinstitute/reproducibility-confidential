@@ -12,6 +12,10 @@
 
 ## Things to remember
 
+Run it all again, top to bottom!
+
+## Things to remember
+
 - When doing a disclosure review request, remember to request the **code**
 - When outputting statistics, *consider the disclosure rules* - the less changes, the faster the output (in theory), but in particular fewer surprises
 - Do not think "*nobody will ever read this code*" - somebody is very likely to!
