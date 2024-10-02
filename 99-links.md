@@ -16,3 +16,9 @@ Some additional guidance can be found on the website of the Social Science Data 
 
 -    <https://doi.org/10.3886/E154241V2> not only code, but faces the problem that IRS data cannot have variables revealed. Their workaround is not the same one as in this tutorial.
 -    <https://doi.org/10.3886/E162581V1> 
+
+---
+
+
+- This presentation's source: <https://github.com/larsvilhuber/reproducibility-confidential-fsrdc>
+- Licensed under [![CC BY-NC 4.0](/images/by-nc.png)](https://creativecommons.org/licenses/by-nc/4.0/)
