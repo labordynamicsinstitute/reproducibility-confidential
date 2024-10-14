@@ -1,7 +1,7 @@
 ####################################
 # global libraries used everywhere #
 ####################################
-mran.date <- "2021-10-01"
+mran.date <- "2024-04-01"
 
 get_os <- function(){
   sysinf <- Sys.info()
@@ -33,14 +33,13 @@ pkgTest <- function(x)
 
 if (get_os()=="linux") {
 ## Rstudio Package Manager
-  options(repos = c(REPO_NAME = paste0("https://packagemanager.rstudio.com/all/__linux__/bionic/",mran.date,"+Y3JhbiwyOjQ1MjYyMTU7NDJGRDU3MTc")))
+  options(repos = c(REPO_NAME = paste0("https://packagemanager.posit.co/cran/__linux__/jammy/",mran.date)))
 } else {
 ## MRAN
-  options(repos=paste0("https://cran.microsoft.com/snapshot/",mran.date,"/"))
+  options(repos=paste0("https://packagemanager.posit.co/cran/",mran.date))
 }
 
-global.libraries <- c("dplyr","devtools","rprojroot","tictoc","ggplot2","tidycensus","readr")
+global.libraries <- c("dplyr","devtools","rprojroot","tictoc","ggplot2","tidycensus","readr","revealjs","rmarkdown")
 
 # now install the rest
 results <- sapply(as.list(global.libraries), pkgTest)
-

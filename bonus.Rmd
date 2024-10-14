@@ -1,0 +1,82 @@
+---
+title: "Creating reproducible packages when data are confidential: Bonus slides"
+author: 
+  - "Lars Vilhuber"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+    widescreen: true
+---
+
+
+# Use cross-platform programming practices
+
+## Cross-platform programming practices 1
+
+**Use programming-language specific code as much as possible**
+
+Avoid
+```{r, eval=FALSE}
+system("unzip C:\data\myfile.zip")
+```
+or
+```{stata, eval=FALSE}
+shell unzip "C:\data\myfile.zip"
+```
+
+
+## Cross-platform programming practices 1
+
+Most languages have appropriate code:
+
+R:
+
+```{r, eval=FALSE}
+unzip(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
+      junkpaths = FALSE, exdir = ".", unzip = "internal",
+      setTimes = FALSE)
+```
+
+Stata:
+
+```{stata, eval=FALSE}
+unzipfile "zipfile.zip" [, replace]
+```
+
+
+## Cross-platform programming practices 2
+
+Use neutral pathnames (mostly forward slashes)
+
+::: {.columns-2}
+
+
+:::: {.column}
+
+**R**: Use functions to combine paths (and/or use forward slashes), packages to make code more portable.
+
+<div class="red2">
+```
+basepath <- rprojroot::find_root(rprojroot::has_file("README.md"))
+data <- read.dta(file.path(basepath,"path","data.dta"))
+```
+</div>
+::::
+
+:::: {.column}
+
+**Stata**: *always* use forward slashes, even on Windows
+
+<div class="blue2">
+
+```
+global data "/my/computer"
+use "$data/path/data.dta"
+```
+</div>
+
+::::
+
+:::
