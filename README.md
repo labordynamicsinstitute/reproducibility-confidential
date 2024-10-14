@@ -4,4 +4,4 @@ Author: Lars Vilhuber
 
 ## License
 
-- Licensed under [![CC BY-NC 4.0](/images/by-nc.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+- Content available under [![CC BY-NC 4.0](/images/cc-by-nc-80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/).
