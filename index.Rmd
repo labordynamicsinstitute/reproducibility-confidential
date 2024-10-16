@@ -1,35 +1,16 @@
 ---
-title: "Creating reproducible packages when data are confidential"
+title: "Reproducibility when data are confidential"
 author: 
   - "Lars Vilhuber"
-date: Sept 2024
+date: Oct 2024
 ---
 
-## Follow along
-
-:::: {.columns}
-
-::: {.column width="30%"}
-
-:::
-
-::: {.column width="40%"}
-
-![](images/qr-fsrdc2024-2.png){width="350" height="350"}
+```{r, eval=FALSE,child=c(here::here('00-follow-along.md'))}
+```
 
 
-:::
 
-::: {.column width="30%"}
-
-:::
-
-::::
-
-[lars.vilhuber.com/p/fsrdc2024-2/](https://lars.vilhuber.com/p/fsrdc2024-2/)
-
-
-# Reproducibility when data are confidential 
+## Reproducibility when data are confidential {.smaller}
 
 Journals require that you **share your code and data** in a replication package at the end of your research project. 
 
@@ -77,19 +58,17 @@ my coding AI suggested that I add
 ```{r, child=c(here::here('12-environments-in-stata.md'))} 
 ```
 
+
+```{r, child=c(here::here('03-secrets-in-code.md'))}
+```
+
 ```{r, child=c(here::here('07-wrapping-up.md'))} 
 ```
 
 # Appendix
 
-# Note
-
-> The appendix was modified after presentation to include additional material that was not covered in the presentation.
 
 ```{r, child=c(here::here('02-provenance.md'))}
-```
-
-```{r, child=c(here::here('03-secrets-in-code.md'))}
 ```
 
 ```{r, child=c(here::here('99-links.md'))}

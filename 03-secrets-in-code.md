@@ -82,7 +82,7 @@ display "$mysecret"  // don't actually do this in code
 
 and via (what else) a user-written package for loading from files:
 
-```{.stata code-line-numbers="1-3}
+```{.stata code-line-numbers="1-3"}
 net install doenv, from(https://github.com/vikjam/doenv/raw/master/) 
 doenv using ".env"
 global mysecret "`r(MYSECRET)'"
