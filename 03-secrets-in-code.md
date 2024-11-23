@@ -381,6 +381,6 @@ if (!file.exists("data/confidential/names_mapping.csv")) {
 
 ## Tutorial example
 
-- See sample R code in this Github repository for an example where we treat presidents' names as confidential data.
+- See [sample R code in this Github repository](https://github.com/labordynamicsinstitute/reproducibility-confidential/tree/main/examples/confidential-merge) for an example where we treat presidents' names as confidential data.
 
 
