@@ -100,7 +100,10 @@ Examples include
 - [this excellent description](https://social-science-data-editors.github.io/guidance/DCAS_Restricted_data.html#us-census-bureau-and-fsrdc) from a paper by [Teresa Fort](https://faculty.tuck.dartmouth.edu/teresa-fort/) ([ReStud](https://doi.org/10.1093/restud/rdw057)):
 
 
-> 3. Reference “Technology and Production Fragmentation: Domestic versus Foreign   Sourcing” by Teresa Fort, project number br1179 in the proposal. This will give you access to   the programs and input datasets required to reproduce the results. Requesting a search of archives   with the articles DOI ("10.1093/restud/rdw057") should yield the same results. 
+> 3. Reference 
+>   - “Technology and Production Fragmentation: Domestic versus Foreign   Sourcing” by Teresa Fort, project number br1179 in the proposal. 
+> This will give you access to   the programs and input datasets required to reproduce the results. 
+> Requesting a search of archives   with the articles DOI ("10.1093/restud/rdw057") should yield the same results. 
 > -
 
 ## Examples {transition="fade" .smaller}
