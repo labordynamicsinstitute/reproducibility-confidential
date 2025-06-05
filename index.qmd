@@ -2,7 +2,7 @@
 title: "Reproducibility when data are confidential"
 author: 
   - "Lars Vilhuber"
-date: 4 Jan 2025
+date: 2025-01-01
 ---
 
 ```{r, eval=FALSE,child=c(here::here('00-follow-along.md'))}

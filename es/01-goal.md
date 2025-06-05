@@ -80,7 +80,7 @@ Descripción completa según la [(plantilla) README](https://social-science-data
 ::::
 
 :::: {.column width="30%"} 
-[![README](images/img-2021-11-08-2.png)](https://social-science-data-editors.github.io/template_README/)
+[![README](/images/img-2021-11-08-2.png)](https://social-science-data-editors.github.io/template_README/)
 
 ::::
 :::::

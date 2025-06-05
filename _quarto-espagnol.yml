@@ -1,0 +1,7 @@
+lang: es
+
+format: 
+  revealjs:
+    footer-logo-link: ../index.html
+    logo: images/flag-usa.png
+    theme: [default, style.css]

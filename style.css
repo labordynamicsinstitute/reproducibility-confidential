@@ -41,3 +41,18 @@
   background-color: lemonchiffon;
   font-weight: bolder;
 }
+
+.btn {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
+}
+.btn:hover {
+  background-color: #1a7bd9;
+  color: white;
+}
+

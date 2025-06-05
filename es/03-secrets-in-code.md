@@ -13,7 +13,7 @@ Almacenar secretos en variables de entorno o archivos que no se publican.
 
 ## Algunos servicios se toman esto en serio
 
-![Escaneo de secretos de Github](images/github-secret-scanning.png)
+![Escaneo de secretos de Github](/images/github-secret-scanning.png)
 
 ## Dónde almacenar secretos
 

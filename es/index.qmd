@@ -2,7 +2,7 @@
 title: "Reproducibilidad cuando los datos son confidenciales"
 author: 
   - "Lars Vilhuber"
-date: 4 Ene 2025
+date: 2025-06-01
 ---
 
 ```{r, eval=FALSE,child=c(here::here('es/00-follow-along.md'))}
@@ -37,11 +37,11 @@ mi IA de codificación sugirió que agregue
 
 ## Ejemplo de depósito
 
-![](images/aea-repo-example.png)
+![](/images/aea-repo-example.png)
 
 ## Política de AEA
 
-![](images/aea-dcap-top.png)
+![](/images/aea-dcap-top.png)
 
 # Objetivo
 

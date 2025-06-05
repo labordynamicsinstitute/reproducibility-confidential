@@ -1,5 +1,7 @@
 format: 
   revealjs:
+#    header: |
+#      <button onclick="window.location = location.href.replace('/en/','/es/');" class="btn"><i class="fa fa-language"></i> Espagnol</button>
     scrollable: true
     margin: 0
     code-overflow: wrap
@@ -7,7 +9,6 @@ format:
     widescreen: true
     center: true
     transition: slide
-    theme: [night, style.css]
     self_contained: false
     reveal_options:
         slideNumber: true
@@ -16,4 +17,12 @@ format:
           theme: chalkboard
           toggleNotesButton: true
     reveal_plugins: ["chalkboard"]
+filters:
+  - reveal-header
+website:
+  body-header: |
+    <button onclick="window.location = location.href.replace('/en/','/es/');" class="btn"><i class="fa fa-language"></i> Espagnol</button>
 
+profile:
+  default: english
+  group: [english, espagnol]

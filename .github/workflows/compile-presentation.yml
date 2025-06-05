@@ -40,7 +40,7 @@ jobs:
     #   with:
     #     path: ./presentation
       run: |
-        quarto render  index.Rmd --output-dir _html
+        bash -ev _build.sh
 
     - name: Upload Artifact
       uses: actions/upload-pages-artifact@v3.0.1    

@@ -1,0 +1,8 @@
+lang: en-US
+
+
+format: 
+  revealjs:
+    footer-logo-link: ./es/index.html
+    logo: images/flag-mexico.png
+    theme: [night, style.css]
