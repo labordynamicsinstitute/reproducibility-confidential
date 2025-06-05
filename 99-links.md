@@ -20,5 +20,5 @@ Some additional guidance can be found on the website of the Social Science Data 
 ---
 
 
-- This presentation's source: <https://github.com/larsvilhuber/reproducibility-confidential-fsrdc>
+- This presentation's source: 
 - Licensed under [![CC BY-NC 4.0](/images/cc-by-nc-80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)

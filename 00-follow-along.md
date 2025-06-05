@@ -1,4 +1,4 @@
-## Follow along
+## Follow along {.smaller}
 
 :::: {.columns}
 
@@ -8,7 +8,7 @@
 
 ::: {.column width="40%"}
 
-![](images/qr-fsrdc2024-2.png){width="350" height="350"}
+![](qrcode.png){width="350" height="350"}
 
 
 :::
@@ -19,4 +19,4 @@
 
 ::::
 
-[lars.vilhuber.com/p/fsrdc2024-2/](https://lars.vilhuber.com/p/fsrdc2024-2/)
+[`r WEBSITE_SHORT`](`r WEBSITE_URL`) ([PDF](presentation-en.pdf))

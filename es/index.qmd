@@ -5,7 +5,34 @@ author:
 date: 2025-06-01
 ---
 
-```{r, eval=FALSE,child=c(here::here('es/00-follow-along.md'))}
+
+```{r config,include=FALSE}
+
+library(qrcode)
+# The repository name
+
+message(Sys.getenv("GITHUB_REPOSITORY"))
+
+# Process the repository name to generate the URL
+# - split the two components
+# - combine them into a URL with 'github.io' in the middle
+
+SUBDIRECTORY <- "es" # Leave this empty if this file is in the main directory of the repository
+
+GITHUB_REPOSITORY <- Sys.getenv("GITHUB_REPOSITORY")
+GITHUB_REPOSITORY_PARTS <- strsplit(GITHUB_REPOSITORY, "/")[[1]]
+REPOSITORY_URL <- paste0("https://github.com/", GITHUB_REPOSITORY)
+
+WEBSITE_URL <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2], "/", SUBDIRECTORY)
+WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2], "/", SUBDIRECTORY)
+
+```
+
+
+```{r, child=c(here::here('00-qrcode.md'))}
+```
+
+```{r follow, eval=TRUE,child=c(here::here('es','00-follow-along.md'))}
 ```
 
 
@@ -49,27 +76,27 @@ mi IA de codificación sugirió que agregue
 - [ ] Proporcionar orientación sobre documentación
 - [ ] Mantenerlo simple
 
-```{r, child=c(here::here('es/01-goal.md'))}
+```{r, child=c(here::here('es','01-goal.md'))}
 ```
 
-```{r, child=c(here::here('es/02-readme.md'))}
+```{r, child=c(here::here('es','02-readme.md'))}
 ```
 
-```{r, child=c(here::here('es/12-environments-in-stata.md'))} 
+```{r, child=c(here::here('es','12-environments-in-stata.md'))} 
 ```
 
 
-```{r, child=c(here::here('es/03-secrets-in-code.md'))}
+```{r, child=c(here::here('es','03-secrets-in-code.md'))}
 ```
 
-```{r, child=c(here::here('es/07-wrapping-up.md'))} 
+```{r, child=c(here::here('es','07-wrapping-up.md'))} 
 ```
 
 # Apéndice
 
 
-```{r, child=c(here::here('es/02-provenance.md'))}
+```{r, child=c(here::here('es','02-provenance.md'))}
 ```
 
-```{r, child=c(here::here('es/99-links.md'))}
+```{r, child=c(here::here('es','99-links.md'))}
 ```
