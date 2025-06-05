@@ -42,13 +42,80 @@ jobs:
       run: |
         bash -ev _build.sh
 
+    - name: Upload presentation Artifact
+      id: artifact-upload-step2
+      uses: actions/upload-artifact@v4
+      with:
+          name: artifact-html
+          path: _html
+          retention-days: 1
+  create-pdf:
+    needs: compile-presentation
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download quarto artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: artifact-html
+        path: _html
+    - name: Check permissions
+      run: |
+        ls -la _html
+        chmod -R a+rwX _html
+        ls -la _html
+        
+    - name: Create PDF (en)
+      uses: addnab/docker-run-action@v3
+      with:
+        image: astefanutti/decktape
+        options: -v ${{ github.workspace }}/_html/:/slides 
+        run: |
+          node /decktape/decktape.js --chrome-path /usr/bin/chromium-browser --chrome-arg=--no-sandbox --chrome-arg=--disable-gpu index.html presentation-en.pdf
+          node /decktape/decktape.js --chrome-path /usr/bin/chromium-browser --chrome-arg=--no-sandbox --chrome-arg=--disable-gpu es/index.html presentation-es.pdf
+    
     - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifact-presentation-pdf
+        path: 
+          - _html/presentation*.pdf    
+
+#====================================
+  deploy-all:
+    runs-on: ubuntu-22.04
+    needs: 
+      - compile-presentation
+      - create-pdf
+    
+    steps:
+    # Pull down both artifacts
+    
+    - name: Download HTML Artifacts
+      uses: actions/download-artifact@v4
+      with:
+            path: .
+            pattern: artifact-html
+    - name: Download Pres PDF
+      uses: actions/download-artifact@v4
+      with:
+            path: .
+            pattern: artifact-presentation-pdf
+    # Adjust this to reflect what you are posting
+    - name: Move stuff
+      run: |
+          ls -lR
+          mv artifact-html website
+          mv artifact-presentation-pdf/presentation*.pdf website/
+    # Prepare the GitHub Pages action
+    - name: prepare GitHub Pages action
       uses: actions/upload-pages-artifact@v3.0.1    
       with:
-        path: _html
-    
+        path: ./website
+  
+#====================================
   publish:
-    needs: compile-presentation
+    needs: 
+      - deploy-all
     
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
