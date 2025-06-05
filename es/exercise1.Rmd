@@ -1,0 +1,50 @@
+---
+title: "Creando paquetes reproducibles cuando los datos son confidenciales: Ejercicio 1"
+author: 
+  - "Lars Vilhuber"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+    widescreen: true
+---
+
+# Ejercicio 1-1
+
+## Configurar una estructura de proyecto
+
+<div class="blue3">
+
+> Sigue la lección aprendida aquí y crea una estructura básica de proyecto
+
+> 1. HAZ FORK del siguiente repositorio: [labordynamicsinstitute/test-part-1-1](https://github.com/labordynamicsinstitute/test-part-1-1)
+> 2. Complétalo con la estructura de directorios
+> 3. Empuja a tu repositorio de Github (tu propio fork)
+
+> ¿Funcionó eso? 
+</div>
+
+## Completar la estructura del proyecto
+
+<div class="blue3">
+> 4. Agrega un README describiendo el propósito de cada directorio
+> 5. Empuja a tu repositorio de Github
+
+> ¿Funcionó eso?
+</div>
+
+# Ejercicio 1-2
+
+## Hacer un repositorio portátil
+
+<div class="blue3">
+¡Una vez que termines, como máximo una línea puede cambiarse para que funcione!
+
+> 1. HAZ FORK del siguiente repositorio: [labordynamicsinstitute/test-part-1-2](https://github.com/labordynamicsinstitute/test-part-1-2)
+> 2. Modifica el código, ya sea Stata o R.
+> 3. Empuja a tu repositorio de Github (tu propio fork)
+
+</div>
+
+¿Crees que tu código funcionará en la computadora de otra persona o en la nube?

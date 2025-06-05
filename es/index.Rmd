@@ -1,0 +1,75 @@
+---
+title: "Reproducibilidad cuando los datos son confidenciales"
+author: 
+  - "Lars Vilhuber"
+date: 4 Ene 2025
+---
+
+```{r, eval=FALSE,child=c(here::here('es/00-follow-along.md'))}
+```
+
+
+
+## Reproducibilidad cuando los datos son confidenciales {.smaller}
+
+Las revistas requieren que **compartas tu código y datos** en un paquete de replicación al final de tu proyecto de investigación. 
+
+Seguir algunas mejores prácticas desde el día 1 no solo puede **ayudarte a preparar** este paquete más tarde, sino también hacerte **investigadores más productivos**. 
+
+Seguir algunas mejores prácticas antes de liberar un paquete puede **evitar revisiones costosas**.
+
+## Aparte
+
+Al escribir 
+
+> Seguir algunas mejores prácticas antes de liberar un paquete puede **evitar revisiones costosas**.
+
+mi IA de codificación sugirió que agregue
+
+> "y retracciones embarazosas"...
+
+
+## ¿Qué es un paquete de replicación?
+
+- [Política de Disponibilidad de Datos y Código de AEA](https://www.aeaweb.org/journals/data/data-code-policy)
+- [Estándar de Disponibilidad de Datos y Código](https://datacodestandard.org/) ![](https://datacodestandard.org/assets/img/DCAS-1.0.png) 
+- [Repositorio de Datos y Código de AEA](https://www.openicpsr.org/openicpsr/search/aea/studies)
+
+## Ejemplo de depósito
+
+![](images/aea-repo-example.png)
+
+## Política de AEA
+
+![](images/aea-dcap-top.png)
+
+# Objetivo
+
+- [ ] Proporcionar orientación sobre la estructura de paquetes de replicación cuando los datos son confidenciales
+- [ ] Proporcionar orientación sobre documentación
+- [ ] Mantenerlo simple
+
+```{r, child=c(here::here('es/01-goal.md'))}
+```
+
+```{r, child=c(here::here('es/02-readme.md'))}
+```
+
+```{r, child=c(here::here('es/12-environments-in-stata.md'))} 
+```
+
+
+```{r, child=c(here::here('es/03-secrets-in-code.md'))}
+```
+
+```{r, child=c(here::here('es/07-wrapping-up.md'))} 
+```
+
+# Apéndice
+
+
+```{r, child=c(here::here('es/02-provenance.md'))}
+```
+
+```{r, child=c(here::here('es/99-links.md'))}
+```

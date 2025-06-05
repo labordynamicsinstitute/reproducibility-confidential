@@ -1,0 +1,82 @@
+---
+title: "Creando paquetes reproducibles cuando los datos son confidenciales: Diapositivas adicionales"
+author: 
+  - "Lars Vilhuber"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+    widescreen: true
+---
+
+
+# Usa prácticas de programación multiplataforma
+
+## Prácticas de programación multiplataforma 1
+
+**Usa código específico del lenguaje de programación tanto como sea posible**
+
+Evita
+```{r, eval=FALSE}
+system("unzip C:\data\myfile.zip")
+```
+o
+```{stata, eval=FALSE}
+shell unzip "C:\data\myfile.zip"
+```
+
+
+## Prácticas de programación multiplataforma 1
+
+La mayoría de los lenguajes tienen código apropiado:
+
+R:
+
+```{r, eval=FALSE}
+unzip(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
+      junkpaths = FALSE, exdir = ".", unzip = "internal",
+      setTimes = FALSE)
+```
+
+Stata:
+
+```{stata, eval=FALSE}
+unzipfile "zipfile.zip" [, replace]
+```
+
+
+## Prácticas de programación multiplataforma 2
+
+Usa nombres de rutas neutrales (principalmente barras diagonales)
+
+::: {.columns-2}
+
+
+:::: {.column}
+
+**R**: Usa funciones para combinar rutas (y/o usa barras diagonales), paquetes para hacer el código más portátil.
+
+<div class="red2">
+```
+basepath <- rprojroot::find_root(rprojroot::has_file("README.md"))
+data <- read.dta(file.path(basepath,"path","data.dta"))
+```
+</div>
+::::
+
+:::: {.column}
+
+**Stata**: *siempre* usa barras diagonales, incluso en Windows
+
+<div class="blue2">
+
+```
+global data "/my/computer"
+use "$data/path/data.dta"
+```
+</div>
+
+::::
+
+:::
