@@ -78,7 +78,7 @@ jobs:
       with:
         name: artifact-presentation-pdf
         path: 
-          - _html/presentation*.pdf    
+          _html/presentation*.pdf    
 
 #====================================
   deploy-all:
