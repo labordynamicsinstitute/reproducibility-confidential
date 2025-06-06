@@ -211,6 +211,11 @@
       ],
       "Hash": "5899f1eaa825580172bb56c08266f37c"
     },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.1",
+      "Source": "Repository"
+    },
     "highr": {
       "Package": "highr",
       "Version": "0.11",
@@ -435,6 +440,11 @@
         "yaml"
       ],
       "Hash": "df99277f63d01c34e95e3d2f06a79736"
+    },
+    "rprojroot": {
+      "Package": "rprojroot",
+      "Version": "2.0.4",
+      "Source": "Repository"
     },
     "rvest": {
       "Package": "rvest",
