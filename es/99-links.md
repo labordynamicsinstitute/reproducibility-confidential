@@ -20,5 +20,5 @@ Se puede encontrar orientación adicional en el sitio web de los Editores de Dat
 ---
 
 
-- Fuente de esta presentación: <https://github.com/larsvilhuber/reproducibility-confidential-fsrdc>
+- Fuente de esta presentación:  [`r GITHUB_REPOSITORY`](`r REPOSITORY_URL`)
 - Con licencia bajo [![CC BY-NC 4.0](/images/cc-by-nc-80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
