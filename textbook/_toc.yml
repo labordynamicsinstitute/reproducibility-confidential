@@ -1,0 +1,18 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+parts:
+  - caption: Reproducibility when data are confidential
+    chapters:
+      - file: 00-what-is-a-replication-package
+      - file: 00-goal
+      - file: 10-final-replication-package
+      - file: 20-the-readme
+      - file: 30-environments-in-stata
+      - file: 40-secrets-in-code
+      - file: 50-confidential-code
+      - file: 51-avoiding-confidential-data-code
+      - file: 60-wrapping-up
+      - file: 70-appendix
