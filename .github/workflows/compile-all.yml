@@ -41,14 +41,12 @@ jobs:
           retention-days: 1
   compile-presentation:
     runs-on: ubuntu-22.04
+    outputs:
+      presentationurl: ${{ steps.artifact-upload-step2.outputs.artifact-url }}
     steps:
-
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Setup Pages
-      id: pages
-      uses: actions/configure-pages@v3
   
     # Let's do the Quarto
     - name: Set up Quarto
