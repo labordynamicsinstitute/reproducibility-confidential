@@ -119,9 +119,15 @@ jobs:
     needs: 
       - compile-presentation
       - create-pdf-presentation
+      - compile-jupyterbook
     
     steps:
-    # Pull down both artifacts
+    # Pull down all artifacts
+    - name: Download Book Artifacts
+      uses: actions/download-artifact@v4
+      with:
+            path: .
+            pattern: artifact-book
     
     - name: Download HTML Artifacts
       uses: actions/download-artifact@v4
@@ -137,8 +143,9 @@ jobs:
     - name: Move stuff
       run: |
           ls -lR
-          mv artifact-html website
-          mv artifact-presentation-pdf/presentation*.pdf website/
+          mv artifact-book website
+          mv artifact-presentation website/presentation
+          mv artifact-presentation-pdf/presentation*.pdf website/presentation.pdf
     # Prepare the GitHub Pages action
     - name: prepare GitHub Pages action
       uses: actions/upload-pages-artifact@v3.0.1    
