@@ -7,4 +7,4 @@ _html
 
 **/.ipynb_checkpoints/**
 
-!**/_build/html/**
+!**/_build/html/**book-env
