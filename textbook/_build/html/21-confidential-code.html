@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Confidential code &#8212; Reproducibility when data are confidential</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '21-confidential-code';</script>
+    <link rel="canonical" href="https://larsvilhuber.github.io/self-checking-reproducibility/21-confidential-code.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Avoiding confidential data in your code" href="22-avoiding-confidential-data-code.html" />
+    <link rel="prev" title="Secrets in the code" href="20-secrets-in-code.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">This is not yet fully debugged - report any issues!</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ssde-logo.jpeg" class="logo__image only-light" alt="Reproducibility when data are confidential - Home"/>
+    <script>document.write(`<img src="_static/ssde-logo.jpeg" class="logo__image only-dark" alt="Reproducibility when data are confidential - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reproducibility when data are confidential</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-what-is-a-replication-package.html">What is a replication package?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00-goal.html">Goal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-final-replication-package.html">The final replication package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-the-readme.html">The README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-environments-in-stata.html">Environments in Stata</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="20-secrets-in-code.html">Secrets in the code</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Confidential code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22-avoiding-confidential-data-code.html">Avoiding confidential data in your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30-wrapping-up.html">Wrapping up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="40-appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/labordynamicsinstitute/reproducibility-confidential" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/labordynamicsinstitute/reproducibility-confidential/edit/main/21-confidential-code.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/labordynamicsinstitute/reproducibility-confidential/issues/new?title=Issue%20on%20page%20%2F21-confidential-code.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/21-confidential-code.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Confidential code</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bad">Bad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better">Better</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best">Best</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="confidential-code">
+<span id="id1"></span><h1>Confidential code<a class="headerlink" href="#confidential-code" title="Link to this heading">#</a></h1>
+<p>What is confidential code, you say?</p>
+<ul class="simple">
+<li><p>In the United States, some variables on <strong>IRS databases</strong> are considered super-top-secret. So you can’t name that-variable-that-you-filled-out-on-your-Form-1040 in your analysis code of same data. (They are often referred to in jargon as “Title 26 variables”).</p></li>
+<li><p>Your code contains the random seed you used to anonymize the sensitive identifiers. This might allow someone to reverse-engineer the anonymization, and is not a good idea to publish.</p></li>
+<li><p>You used a look-up table hard-coded in your Stata code to anonymize the sensitive identifiers (replace <code class="docutils literal notranslate"><span class="pre">anoncounty=1</span> <span class="pre">if</span> <span class="pre">county=&quot;Tompkins,</span> <span class="pre">NY&quot;</span></code>). A <strong>really bad idea</strong>, but yes, you probably want to hide that.</p></li>
+<li><p>Your IT specialist or disclosure officer thinks publishing the <strong>exact path</strong> to your copy of the confidential 2010 Census data, e.g., “/data/census/2010”, is a security risk and refuses to let that code through.</p></li>
+<li><p>You have adhered to disclosure rules, but for some reason, the precise minimum cell size is a confidential parameter.</p></li>
+</ul>
+<p>So whether reasonable or not, <strong>this is an issue</strong>. How do you do that, without messing up the code, or spending hours redacting your code?</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>This will serve as an example. None of this is specific to Stata, and the solutions for R, Python, Julia, Matlab, etc. are all quite similar.</p>
+<p>Assume that variables <code class="docutils literal notranslate"><span class="pre">q2f</span></code> and <code class="docutils literal notranslate"><span class="pre">q3e</span></code> are considered confidential by some rule, and that the minimum cell size <code class="docutils literal notranslate"><span class="pre">10</span></code> is also confidential.</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> seed <span class="m">12345</span>
+<span class="k">use</span> q2f q3e county using <span class="s">&quot;/data/economic/cmf2012/extract.dta&quot;</span>,<span class="k"> clear</span>
+<span class="k">gen</span> logprofit =<span class="k"> log</span>(q2f)
+<span class="k">by</span> county:<span class="k"> collapse</span> (count) <span class="k"> n</span>=q3e (mean) logprofit
+<span class="k">drop if n</span><span class="o">&lt;</span><span class="m">10</span>
+<span class="k">graph twoway n</span> logprofit
+</pre></div>
+</div>
+<p>The final line is the only line of code that does not contain “confidential” information.</p>
+<section id="bad">
+<h3>Bad<a class="headerlink" href="#bad" title="Link to this heading">#</a></h3>
+<p>A bad example, because it is literally making more work for you and for future replicators, is to manually redact the confidential information with text that is not legitimate code (do not do this!):</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> seed NNNNN
+<span class="k">use</span> <span class="o">&lt;</span>removed vars<span class="o">&gt;</span> county using <span class="s">&quot;&lt;removed path&gt;&quot;</span>,<span class="k"> clear</span>
+<span class="k">gen</span> logprofit =<span class="k"> log</span>(XXXX)
+<span class="k">by</span> county:<span class="k"> collapse</span> (count) <span class="k"> n</span>=XXXX (mean) logprofit
+<span class="k">drop if n</span><span class="o">&lt;</span>XXXX
+<span class="k">graph twoway n</span> logprofit
+</pre></div>
+</div>
+<p>The redacted program above will no longer run, and will be very tedious to un-redact if a subsequent replicator obtains legitimate access to the confidential data.</p>
+</section>
+<section id="better">
+<h3>Better<a class="headerlink" href="#better" title="Link to this heading">#</a></h3>
+<p>Simply replace the confidential data with replacement that are valid placeholders in the programming language of your choice is already better. Here’s the confidential version of the file:</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="c1">//============ confidential parameters =============</span>
+<span class="k">global</span> confseed    <span class="m">12345</span>
+<span class="k">global</span> confpath    <span class="s">&quot;/data/economic/cmf2012&quot;</span>
+<span class="k">global</span> confprofit  q2f
+<span class="k">global</span> confemploy  q3e
+<span class="k">global</span> confmincell <span class="m">10</span>
+<span class="c1">//============ end confidential parameters =========</span>
+<span class="k">set</span> seed <span class="vg">$confseed</span>
+<span class="k">use</span> <span class="vg">$confprofit</span> county using <span class="s">&quot;</span><span class="vg">${confpath}</span><span class="s">/extract.dta&quot;</span>,<span class="k"> clear</span>
+<span class="k">gen</span> logprofit =<span class="k"> log</span>(<span class="vg">$confprofit</span>)
+<span class="k">by</span> county:<span class="k"> collapse</span> (count) <span class="k"> n</span>=<span class="vg">$confemploy</span> (mean) logprofit
+<span class="k">drop if n</span><span class="o">&lt;</span><span class="vg">$confmincell</span>
+<span class="k">graph twoway n</span> logprofit
+</pre></div>
+</div>
+<p>And the following could be the released file, part of the replication package:</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="c1">//============ confidential parameters =============</span>
+<span class="k">global</span> confseed    XXXX    <span class="c1">// a number</span>
+<span class="k">global</span> confpath    <span class="s">&quot;XXXX&quot;</span>  <span class="c1">// a path that will be communicated to you</span>
+<span class="k">global</span> confprofit  XXX     <span class="c1">// Variable name for profit T26</span>
+<span class="k">global</span> confemploy  XXX     <span class="c1">// Variable name for employment T26</span>
+<span class="k">global</span> confmincell XXX     <span class="c1">// a number</span>
+<span class="c1">//============ end confidential parameters =========</span>
+<span class="k">set</span> seed <span class="vg">$confseed</span>
+<span class="k">use</span> <span class="vg">$confprofit</span> county using <span class="s">&quot;</span><span class="vg">${confpath}</span><span class="s">/extract.dta&quot;</span>,<span class="k"> clear</span>
+<span class="k">gen</span> logprofit =<span class="k"> log</span>(<span class="vg">$confprofit</span>)
+<span class="k">by</span> county:<span class="k"> collapse</span> (count) <span class="k"> n</span>=<span class="vg">$confemploy</span> (mean) logprofit
+<span class="k">drop if n</span><span class="o">&lt;</span><span class="vg">$confmincell</span>
+<span class="k">graph twoway n</span> logprofit
+</pre></div>
+</div>
+<p>While the code won’t run as-is, it is easy to un-redact, regardless of how many times you reference the confidential values, e.g., <code class="docutils literal notranslate"><span class="pre">q2f</span></code>, anywhere in the code.</p>
+</section>
+<section id="best">
+<h3>Best<a class="headerlink" href="#best" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Main file</p></li>
+<li><p>Conditional processing</p></li>
+<li><p>Separate file for confidential parameters which can simply be excluded from disclosure request</p></li>
+</ul>
+<p>Main file <code class="docutils literal notranslate"><span class="pre">main.do</span></code>:</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="c1">//============ confidential parameters =============</span>
+<span class="k">capture confirm file</span> <span class="s">&quot;</span><span class="vg">$code</span><span class="s">/confidential/confparms.do&quot;</span>
+<span class="k">if</span> _rc <span class="o">==</span> <span class="m">0</span> {
+    <span class="c1">// file exists</span>
+<span class="k">    include</span> <span class="s">&quot;</span><span class="vg">$code</span><span class="s">/confidential/confparms.do&quot;&quot;</span>
+}<span class="k"> else</span> {
+<span class="k">    di in</span> red <span class="s">&quot;No confidential parameters found&quot;</span>
+}
+<span class="c1">//============ end confidential parameters =========</span>
+
+<span class="c1">//============ non-confidential parameters =========</span>
+<span class="k">global</span> safepath <span class="s">&quot;</span><span class="vg">$rootdir</span><span class="s">/releasable&quot;</span>
+<span class="k">cap mkdir</span> <span class="s">&quot;</span><span class="vg">$safepath</span><span class="s">&quot;</span>
+
+<span class="c1">//============ end parameters ======================</span>
+
+<span class="c1">// ::::  Process only if confidential data is present </span>
+
+<span class="k">capture confirm</span> <span class="k"> file</span> <span class="s">&quot;</span><span class="vg">${confpath}</span><span class="s">/extract.dta&quot;</span>
+<span class="k">if</span> _rc <span class="o">==</span> <span class="m">0</span> {
+<span class="k">   set</span> seed <span class="vg">$confseed</span>
+<span class="k">   use</span> <span class="vg">$confprofit</span> county using <span class="s">&quot;</span><span class="vg">${confpath}</span><span class="s">/extract.dta&quot;</span>,<span class="k"> clear</span>
+<span class="k">   gen</span> logprofit =<span class="k"> log</span>(<span class="vg">$confprofit</span>)
+<span class="k">   by</span> county:<span class="k"> collapse</span> (count) <span class="k"> n</span>=<span class="vg">$confemploy</span> (mean) logprofit
+<span class="k">   drop if n</span><span class="o">&lt;</span><span class="vg">$confmincell</span>
+<span class="k">   save</span> <span class="s">&quot;</span><span class="vg">${safepath}</span><span class="s">/figure1.dta&quot;</span>,<span class="k"> replace</span>
+}<span class="k"> else</span> {<span class="k"> di in</span> red <span class="s">&quot;Skipping processing of confidential data&quot;</span> }
+
+<span class="c1">//============ at this point, the data is releasable ======</span>
+<span class="c1">// ::::  Process always </span>
+
+<span class="k">use</span> <span class="s">&quot;</span><span class="vg">${safepath}</span><span class="s">/figure1.dta&quot;</span>,<span class="k"> clear</span>
+<span class="k">graph twoway n</span> logprofit
+<span class="k">graph</span> export <span class="s">&quot;</span><span class="vg">${safepath}</span><span class="s">/figure1.pdf&quot;</span>,<span class="k"> replace</span>
+</pre></div>
+</div>
+<p>Auxiliary file <code class="docutils literal notranslate"><span class="pre">$code/confidential/confparms.do&quot;</span></code> (not released):</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="c1">//============ confidential parameters =============</span>
+<span class="k">global</span> confseed    <span class="m">12345</span>
+<span class="k">global</span> confpath    <span class="s">&quot;/data/economic/cmf2012&quot;</span>
+<span class="k">global</span> confprofit  q2f
+<span class="k">global</span> confemploy  q3e
+<span class="k">global</span> confmincell <span class="m">10</span>
+<span class="c1">//============ end confidential parameters =========</span>
+</pre></div>
+</div>
+<p>Auxiliary file <code class="docutils literal notranslate"><span class="pre">$code/include/confparms_template.do</span></code> (this is released):</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="c1">//============ confidential parameters =============</span>
+<span class="c1">// Copy this file to $code/confidential/confparms.do and edit</span>
+<span class="k">global</span> confseed    XXXX    <span class="c1">// a number</span>
+<span class="k">global</span> confpath    <span class="s">&quot;XXXX&quot;</span>  <span class="c1">// a path that will be communicated to you</span>
+<span class="k">global</span> confprofit  XXX     <span class="c1">// Variable name for profit T26</span>
+<span class="k">global</span> confemploy  XXX     <span class="c1">// Variable name for employment T26</span>
+<span class="k">global</span> confmincell XXX     <span class="c1">// a number</span>
+<span class="c1">//============ end confidential parameters =========</span>
+</pre></div>
+</div>
+<p>Thus, the best replication package would have:</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>...
+code/main.do
+README.md
+include/confparms_template.do
+releasable/figure1.dta
+releasable/figure1.pdf
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="20-secrets-in-code.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Secrets in the code</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="22-avoiding-confidential-data-code.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Avoiding confidential data in your code</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bad">Bad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better">Better</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best">Best</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lars Vilhuber
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Partially funded by Alfred P Sloan Foundation, G-2023-22326.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
