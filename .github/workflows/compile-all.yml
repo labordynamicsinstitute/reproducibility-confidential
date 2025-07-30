@@ -63,6 +63,7 @@ jobs:
       uses: r-lib/actions/setup-renv@v2
       with:
         cache-version: 1
+        working-directory: presentation
         
     - name: Render Quarto Project
       env:
@@ -71,14 +72,15 @@ jobs:
     #   with:
     #     path: ./presentation
       run: |
+        cd presentation
         bash -ev _build.sh
 
     - name: Upload presentation Artifact
       id: artifact-upload-step2
       uses: actions/upload-artifact@v4
       with:
-          name: artifact-html
-          path: _html
+          name: artifact-presentation
+          path: presentation/_html/
           retention-days: 1
   create-pdf-presentation:
     needs: compile-presentation
@@ -87,7 +89,7 @@ jobs:
     - name: Download quarto artifact
       uses: actions/download-artifact@v4
       with:
-        name: artifact-html
+        name: artifact-presentation
         path: _html
     - name: Check permissions
       run: |
@@ -125,7 +127,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
             path: .
-            pattern: artifact-html
+            pattern: artifact-presentation
     - name: Download Pres PDF
       uses: actions/download-artifact@v4
       with:
