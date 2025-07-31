@@ -2,7 +2,8 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Reproducibility when data are confidential
-author: Lars Vilhuber
+author: 
+  - Lars Vilhuber, with contributions by Laurel Krovetz
 logo: images/ssde-logo.jpeg
 copyright: "2025"
 exclude_patterns          : ["*env",".git*",".devcontainer","presentation","README.md"]
