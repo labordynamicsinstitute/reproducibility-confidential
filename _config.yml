@@ -71,15 +71,7 @@ latex:
   latex_documents:
     targetname: book.tex
   latex_engine: xelatex # Or lualatex for better Unicode support
-  latex_elements:
-    papersize: letter
-    # Directly inline the custom preamble content here
-    preamble: |
-      % --- START CUSTOM PREAMBLE ---
-      % Declare how to handle the U+1F6E0 (🛠) character
-      % Replace it with a simple asterisk "*"
-      \DeclareUnicodeCharacter{1F6E0}{*}
-      % --- END CUSTOM PREAMBLE ---
+
 # Advanced and power-user settings
 sphinx:
   extra_extensions          :   # A list of extra extensions to load by Sphinx.
@@ -91,7 +83,10 @@ sphinx:
         % --- START CUSTOM PREAMBLE ---
         % Declare how to handle the U+1F6E0 (🛠) character
         % Replace it with a simple asterisk "*"
-        \XeTeXchar`\U+1F6E0 = "*" % Direct character remapping for XeTeX
+        \usepackage{newunicodechar}
+        \newunicodechar{🛠}{*}  % Direct Unicode character
+        % OR
+        %\newunicodechar{\char{"1F6E0}}{*}  % Using hex code
         % --- END CUSTOM PREAMBLE ---
 
 # Custom data in JSON notation
