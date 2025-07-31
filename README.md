@@ -1,7 +1,32 @@
-# Reproducibility when data are confidential
+# Reproducbility when data are confidential 
 
-Author: Lars Vilhuber
+Reproducibility when data are confidential
+
+## Author
+
+- Lars Vilhuber
+- Laurel Krovetz
+
+## All versions (archived)
+
+zenodo link
+
+## Building
+
+- The presentation is built using [Quarto](https://quarto.org/).
+- The text book website is built using [Jupyter Book](https://jupyterbook.org/).
+
+### Building the website
+
+- Create Python environment: `python -m venv book-env`
+- Activate the environment:
+  - On Windows: `book-env\Scripts\activate`
+  - On macOS/Linux: `source book-env/bin/activate`
+- Install Python requirements: `pip install -r requirements.txt`
+- Build the website: `jupyter-book build .`
+
+This is all in `build-book.sh`.
 
 ## License
 
-- Content available under [![CC BY-NC 4.0](/images/cc-by-nc-80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/).
+creative commoms license link
