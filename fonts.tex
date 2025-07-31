@@ -1,0 +1,16 @@
+% fonts.tex
+% Ensure XeLaTeX or LuaLaTeX is used
+
+
+% Emoji Font Setup
+% Make sure 'Noto Color Emoji' is installed on your build system (e.g., via apt-get install fonts-noto-color-emoji)
+\newfontfamily\emojifont{Noto Color Emoji}[
+    Path = /usr/share/fonts/truetype/noto/, % Common path for Noto fonts
+    Extension = .ttf,
+]
+
+% Define how specific Unicode characters are rendered
+% This tells LaTeX to use the \emojifont for these characters
+\DeclareUnicodeCharacter{1F6E0}{{\emojifont\symbol{"1F6E0}}} % 🛠 (Hammer and Wrench)
+\DeclareUnicodeCharacter{1F343}{{\emojifont\symbol{"1F343}}} % 🍁 (Maple Leaf - example from your previous question)
+% Add more \DeclareUnicodeCharacter lines for any other specific emojis causing issues

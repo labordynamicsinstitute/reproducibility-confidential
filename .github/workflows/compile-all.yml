@@ -59,7 +59,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y texlive-latex-extra \
                      texlive-fonts-extra \
-                     texlive-xetex latexmk
+                     texlive-xetex latexmk \
+                     fonts-noto-color-emoji
 
     # Build the book
     - name: Build the book

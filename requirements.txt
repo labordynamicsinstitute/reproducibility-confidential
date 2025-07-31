@@ -3,3 +3,4 @@ matplotlib
 numpy
 sphinx-design
 pydata-sphinx-theme
+sphinx-jupyterbook-latex
