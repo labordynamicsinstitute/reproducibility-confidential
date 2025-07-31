@@ -1,10 +1,6 @@
 _html
 .Rproj.user
-
 /.quarto/
-
 **/_build/**
-
 **/.ipynb_checkpoints/**
-
-!**/_build/html/**book-env
+**book-env

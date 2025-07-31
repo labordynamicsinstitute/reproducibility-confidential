@@ -39,6 +39,39 @@ jobs:
           name: artifact-book
           path: _build/html
           retention-days: 1
+  # experimental
+  create-pdf-book:
+    needs: compile-jupyterbook
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    # Install dependencies
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip' # caching pip dependencies
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        apt-get install -y texlive-latex-extra \
+                     texlive-fonts-extra \
+                     texlive-xetex latexmk
+
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build . --builder pdflatex
+    - name: Upload Artifact
+      id: artifact-upload-step1-pdf
+      uses: actions/upload-artifact@v4
+      with:
+          name: artifact-book-pdf
+          path: _build/latex/book.pdf
+          retention-days: 1
+
   compile-presentation:
     runs-on: ubuntu-22.04
     outputs:
@@ -120,6 +153,7 @@ jobs:
       - compile-presentation
       - create-pdf-presentation
       - compile-jupyterbook
+      - create-pdf-book
     
     steps:
     # Pull down all artifacts
@@ -139,11 +173,17 @@ jobs:
       with:
             path: .
             pattern: artifact-presentation-pdf
+    - name: Download Book PDF
+      uses: actions/download-artifact@v4
+      with:
+            path: .
+            pattern: artifact-book-pdf
     # Adjust this to reflect what you are posting
     - name: Move stuff
       run: |
           ls -lR
           mv artifact-book website
+          mv artifact-book-pdf/book.pdf website/
           mv artifact-presentation website/presentation
           mv artifact-presentation-pdf/presentation*.pdf website/
     # Prepare the GitHub Pages action

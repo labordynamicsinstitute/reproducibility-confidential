@@ -152,7 +152,7 @@ global confmincell XXX     // a number
 
 Thus, the best replication package would have:
 
-```plaintext
+```text
 ...
 code/main.do
 README.md

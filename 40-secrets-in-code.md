@@ -15,7 +15,7 @@ Store secrets in **environment variables** such as "[dot-env](https://pypi.org/p
 
 Example typed interactively (for Linux and Mac):
 
-```plaintext
+```text
 MYSECRET="dfad89ald"
 CONFDATALOC="/path/to/irs/files"
 ```

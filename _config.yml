@@ -5,7 +5,7 @@ title: Reproducibility when data are confidential
 author: Lars Vilhuber
 logo: images/ssde-logo.jpeg
 copyright: "2025"
-exclude_patterns          : ["*venv*",".git*",".devcontainer","presentation"]
+exclude_patterns          : ["*env",".git*",".devcontainer","presentation","README.md"]
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

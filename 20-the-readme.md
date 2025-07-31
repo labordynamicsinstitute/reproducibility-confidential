@@ -7,6 +7,7 @@ There are three key components to the README file:
 - Description of processing
 
 ## Data availability
+
 This is easy: it's the data you requested to have included in your FSRDC project. So you had this info from **day -90** of the project!
 
 In order to describe the data availability, split it into two:
@@ -16,6 +17,7 @@ In order to describe the data availability, split it into two:
 The above two might not always be the same, but both are relevant.
 
 ### Examples
+
 - This excellent description from a paper by [Teresa Fort](https://faculty.tuck.dartmouth.edu/teresa-fort/) ([ReStud](https://academic.oup.com/restud/article-abstract/84/2/650/2687762?redirectedFrom=fulltext&login=false)):
   1. All the results in the paper use confidential microdata from the U.S. Census Bureau. To gain access to the Census microdata, follow the 
      directions here on how to write a proposal for access to the data via a Federal Statistical Research Data Center: 
@@ -53,6 +55,7 @@ The above two might not always be the same, but both are relevant.
   [this archive/ this article] amongst backups/archives made in [month of archive].
 
 ### Don't forget to cite the data
+
 Bureau of the Census. (release year). American Community Survey-Master Address File Crosswalk YYYY-YYZZ [Data File]. Federal Statistical Research Data Center [distributor].
 
 Graf, Tobias; Grießemer, Stephan; Köhler, Markus; Lehnert, Claudia; Moczall, Andreas; Oertel, Martina; Schmucker, Alexandra; Schneider, Andreas; Seth, Stefan; Thomsen, Ulrich; vom Berge, Philipp (2023): “Weakly anonymous Version of the Sample of Integrated Labour Market Biographies (SIAB) – Version 7521 v1”. Research Data Centre of the Federal Employment Agency (BA) at the Institute for Employment Research (IAB). https:/doi.org/10.5164/IAB.SIAB7521.de.en.v1
@@ -61,18 +64,21 @@ Graf, Tobias; Grießemer, Stephan; Köhler, Markus; Lehnert, Claudia; Moczall, A
 - Ideally, every research data center would have "landing pages" for the data (the IAB example does).
 
 ## Computer requirements
+
 In most confidential environments, such as FSRDC/IRE, this part is out of your control. But you should describe it anyway! You should include the approximate description of computer/nodes used. This includes memory size (though we are interested in actual usage, not the maximum of what the system has), and compute time (how long does a clean run, from top to bottom, take?), and number of nodes (any parallel processing?). You should also detail the software used, that is, the version of software (Stata 17, update level), and all packages, ideally version of package (which `estout`).
 
 ### FSRDC
+
 Did you use PBS? Include the `qsub` files. Or if you used `qstata` or such, describe that: 
 
-```plain text
+```text
 ...
 run.sh
 qsub-complete.sh
 ```
 
 ## Description of processing
+
 That's easy: you've been keeping clean instructions since the start, right?
 
 - Run `main.do` or `run.sh`
@@ -83,6 +89,7 @@ That's easy: you've been keeping clean instructions since the start, right?
 You've been doing that **since day 1!**
 
 ## Three parts to README: timing
+
 - Data availability (and citations) -- start of the project, edit at the end
 - Computer requirement -- middle of the project 
 - Description of processing -- middle of the project

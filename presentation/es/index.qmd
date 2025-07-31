@@ -17,7 +17,7 @@ message(Sys.getenv("GITHUB_REPOSITORY"))
 # - split the two components
 # - combine them into a URL with 'github.io' in the middle
 
-SUBDIRECTORY <- "es" # Leave this empty if this file is in the main directory of the repository
+SUBDIRECTORY <- "presentation/es" # Leave this empty if this file is in the main directory of the repository
 
 GITHUB_REPOSITORY <- Sys.getenv("GITHUB_REPOSITORY")
 GITHUB_REPOSITORY_PARTS <- strsplit(GITHUB_REPOSITORY, "/")[[1]]
