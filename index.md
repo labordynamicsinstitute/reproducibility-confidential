@@ -16,8 +16,8 @@ Many of the methods and techniques described here are not specific to confidenti
 
 This subject is also available as
 
-- [an online presentation](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation/) and its [printable PDF](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation/presentation-en.pdf) (also in [Spanish](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation/presentation-es.pdf) 🛠️)
-- [a printable PDF](https://larsvilhuber.github.io/reproducibility-confidential/book.pdf) 🛠️
+- [an online presentation](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation/) and its [printable PDF](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation-en.pdf) (also in [Spanish](https://labordynamicsinstitute.github.io/reproducibility-confidential/presentation-es.pdf) 🛠️)
+- [a printable PDF](https://labordynamicsinstitute.github.io/reproducibility-confidential/book.pdf) 🛠️
 
 (🛠️ indicates work-in-progress, WIP)
 
