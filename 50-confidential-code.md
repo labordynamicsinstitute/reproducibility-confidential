@@ -115,7 +115,7 @@ if _rc == 0 {
    by county: collapse (count)  n=$confemploy (mean) logprofit
    drop if n<$confmincell
    save "${safepath}/figure1.dta", replace
-} else { di in red "Skipping processing of confidential data" }
+} else  di in red "Skipping processing of confidential data" 
 
 //============ at this point, the data is releasable ======
 // ::::  Process always 
