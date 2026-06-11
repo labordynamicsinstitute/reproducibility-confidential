@@ -84,9 +84,9 @@ Intro (unchanged): `00-qrcode.md` → `00-follow-along.md`
 
 ## Naming convention
 
-New/renamed files use descriptive slugs (not numeric prefixes) since order is controlled by `index.qmd` include order, matching the recent additions (`interactive-exercise-1.md`, etc.). Existing numbered files are left at their current names unless split.
+New/renamed files use descriptive slugs (not numeric prefixes) since order is controlled by `index.qmd` include order, matching the recent additions (`interactive-exercise-1.md`, etc.). Existing numbered files are **left at their current names** (no renumbering). Order comes from `index.qmd`.
 
-> Open question to confirm during implementation: whether to renumber existing files (e.g. `01-goal.md`) for consistency, or leave numeric names as-is and rely on `index.qmd` order. Default: leave names as-is to minimize churn; order comes from `index.qmd`.
+Rationale: similar presentations exist elsewhere that share some of these slide files but are not fully aligned; the files are meant to be re-usable across decks, so renumbering here would create churn and break reuse. Each `.md` stays a self-contained, portable slide unit.
 
 ## Content style for authored slides
 
