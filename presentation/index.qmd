@@ -76,44 +76,69 @@ my coding AI suggested that I add
 - [ ] Provide guidance on documentation
 - [ ] Keep it simple
 
-```{r, child=c(here::here('01-goal.md'))}
-```
+# What is the goal
 
 ```{r, child=c(here::here('02-what-is-confidential-data.md'))}
 ```
 
+```{r, child=c(here::here('01-goal.md'))}
+```
 
-```{r, child=c(here::here('interactive-exercise-1.md'))}
+```{r, child=c(here::here('private-goal.md'))}
+```
+
+# How to get there
+
+```{r, child=c(here::here('file-organization.md'))}
+```
+
+```{r, child=c(here::here('versioning.md'))}
+```
+
+```{r, child=c(here::here('readme-notebook.md'))}
+```
+
+# What is required
+
+```{r, child=c(here::here('code-raw-to-output.md'))}
 ```
 
 ```{r, child=c(here::here('04-provenance.md'))}
 ```
 
-```{r, child=c(here::here('interactive-exercise-2.md'))}
+```{r, child=c(here::here('16-survey-extract.md'))}
 ```
 
-
-
-```{r, child=c(here::here('05-readme.md'))}
+```{r, child=c(here::here('provenance-private.md'))}
 ```
 
+# Disclosure avoidance
 
+```{r, child=c(here::here('plan-for-it.md'))}
+```
 
 ```{r, child=c(here::here('06-secrets-in-code.md'))}
 ```
 
-
-```{r, child=c(here::here('16-survey-extract.md'))}
+```{r, child=c(here::here('packages.md'))}
 ```
 
+```{r, child=c(here::here('computational-requirements.md'))}
+```
 
-
+```{r, child=c(here::here('confidential-data-packaging.md'))}
+```
 
 ```{r, child=c(here::here('07-wrapping-up.md'))} 
 ```
 
 # Appendix
 
+```{r, child=c(here::here('interactive-exercise-1.md'))}
+```
+
+```{r, child=c(here::here('interactive-exercise-2.md'))}
+```
 
 ```{r, child=c(here::here('12-environments-in-stata.md'))} 
 ```
