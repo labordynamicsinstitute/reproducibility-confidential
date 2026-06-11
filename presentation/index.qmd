@@ -2,7 +2,7 @@
 title: "Reproducibility when data are confidential"
 author: 
   - "Lars Vilhuber"
-date: 2026-03-18
+date: 2026-06-11
 ---
 
 
@@ -32,88 +32,76 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```{r, child=c(here::here('00-qrcode.md'))}
 ```
 
-```{r follow, child=c(here::here('00-follow-along.md'))}
+```{r, child=c(here::here('00-follow-along.md'))}
 ```
 
+```{r, child=c(here::here('00-intro.md'))}
+```
+
+# What are the goals
 
 
-## Reproducibility when data are confidential {.smaller}
+```{r, child=c(here::here('01-goals-public.md'))}
+```
 
-Journals require that you **share your code and data** in a replication package at the end of your research project. 
-
-Following some best practices from day 1 can not only **help you prepare** this package later, but also make you **more productive** researchers. 
-
-Following some best practices before releasing a package can **avoid costly revisions**.
-
-## Aside
-
-When typing 
-
-> Following some best practices before releasing a package can **avoid costly revisions**.
-
-my coding AI suggested that I add
-
-> "and embarrassing retractions"...
-
-
-## What is a replication package?
-
-- [AEA Data and Code Availability policy](https://www.aeaweb.org/journals/data/data-code-policy)
-- [Data and Code Availability Standard](https://datacodestandard.org/) ![](https://datacodestandard.org/assets/img/DCAS-1.0.png) 
-- [AEA Data and Code Repository](https://www.openicpsr.org/openicpsr/search/aea/studies)
-
-## Example of deposit
-
-![](images/aea-repo-example.png)
-
-## AEA policy
-
-![](images/aea-dcap-top.png)
-
-# Goal
-
-- [ ] Provide guidance on structure of replication packages when data are confidential
-- [ ] Provide guidance on documentation
-- [ ] Keep it simple
-
-```{r, child=c(here::here('01-goal.md'))}
+```{r, child=c(here::here('01-goals-private.md'))}
 ```
 
 ```{r, child=c(here::here('02-what-is-confidential-data.md'))}
 ```
 
 
-```{r, child=c(here::here('interactive-exercise-1.md'))}
+
+# How to achieve the goals
+
+```{r, child=c(here::here('03-file-organization.md'))}
+```
+
+```{r, child=c(here::here('03-target.md'))}
+```
+
+```{r, child=c(here::here('03-versioning.md'))}
+```
+
+```{r, child=c(here::here('02-01-readme-notebook.md'))}
+```
+
+```{r, child=c(here::here('04-code-raw-to-output.md'))}
 ```
 
 ```{r, child=c(here::here('04-provenance.md'))}
 ```
 
-```{r, child=c(here::here('interactive-exercise-2.md'))}
+```{r, child=c(here::here('16-survey-extract.md'))}
+```
+
+```{r, child=c(here::here('02-03-provenance-private.md'))}
 ```
 
 
-
-```{r, child=c(here::here('05-readme.md'))}
+```{r, child=c(here::here('05-disclosure-avoidance.md'))}
 ```
-
-
 
 ```{r, child=c(here::here('06-secrets-in-code.md'))}
 ```
 
-
-```{r, child=c(here::here('16-survey-extract.md'))}
+```{r, child=c(here::here('07-software.md'))}
 ```
 
 
+```{r, child=c(here::here('09-confidential-data-packaging.md'))}
+```
 
-
-```{r, child=c(here::here('07-wrapping-up.md'))} 
+```{r, child=c(here::here('99-wrapping-up.md'))} 
 ```
 
 # Appendix
 
+```{r, child=c(here::here('interactive-exercise-1.md'))}
+```
+
+```{r, child=c(here::here('interactive-exercise-2.md'))}
+```
 
 ```{r, child=c(here::here('12-environments-in-stata.md'))} 
 ```

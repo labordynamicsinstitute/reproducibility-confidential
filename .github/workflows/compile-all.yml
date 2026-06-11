@@ -6,6 +6,7 @@ on:
     branches:
     - main
     - reorg
+  pull_request:
   workflow_dispatch:
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
@@ -150,8 +151,11 @@ jobs:
 
 #====================================
   deploy-all:
+    # Build/compile jobs above still run on pull_request (to test rendering),
+    # but do not deploy to GitHub Pages from a PR.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-22.04
-    needs: 
+    needs:
       - compile-presentation
       - create-pdf-presentation
       - compile-jupyterbook
@@ -196,7 +200,8 @@ jobs:
   
 #====================================
   publish:
-    needs: 
+    if: github.event_name != 'pull_request'
+    needs:
       - deploy-all
     
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
