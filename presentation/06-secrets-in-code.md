@@ -89,6 +89,9 @@ global mysecret "`r(MYSECRET)'"
 display "$mysecret"
 ```
 
+## But environment variables are not everybody's cup of tea
+
+- As with `git`, there are some other acceptable solutions
 
 ## Simplest solution
 
@@ -316,7 +319,7 @@ releasable/figure1.dta
 releasable/figure1.pdf
 ```
 
-# Avoiding confidential data in your code
+# Avoiding confidential `data` in your code
 
 ## The problem
 
@@ -376,7 +379,7 @@ if (!file.exists("data/confidential/names_mapping.csv")) {
 
 ## Note
 
-- You may stil want to de-identify the data before releasing it!
+- You may still want to de-identify the *data* before releasing it!
 - The code, however, is now **free of confidential information**.
 
 ## Tutorial example

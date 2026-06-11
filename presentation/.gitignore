@@ -1,1 +1,7 @@
 /.quarto/
+
+**/*.quarto_ipynb
+index.html
+index_files
+qrcode.png
+.cache

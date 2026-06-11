@@ -1,7 +1,7 @@
 # Keeping on top of provenance
 
 - Licenses
-- Streamlining for reproducibility
+- Permissions
 
 # Licenses
 

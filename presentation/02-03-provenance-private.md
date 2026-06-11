@@ -1,4 +1,4 @@
-# Provenance of private data
+# Provenance of confidential data
 
 How did *you* get the data — and how can *others*?
 
@@ -11,9 +11,9 @@ How did *you* get the data — and how can *others*?
 
 In order to describe data availability, split into two:
 
-- how did YOU get access to the data (that's old)
-- how can OTHERS get access to the same data (that might be different!)
-- The two are not always the same, but are both relevant.
+- how did **YOU** get access to the data (that's old)
+- how can *OTHERS* get access to the same data (that might be different!)
+- The two are not always the same, but are **both relevant**.
 
 ## Examples {transition="fade" .smaller}
 
@@ -105,10 +105,22 @@ Also grant permission to your project files:
 
 ## Don't forget to cite the data {.smaller}
 
-> Bureau of the Census. (release year). American Community Survey-Master Address File Crosswalk YYYY-YYZZ [Data File]. Federal Statistical Research Data Center [distributor].
->
-> Graf, Tobias; Grießemer, Stephan; Köhler, Markus; Lehnert, Claudia; Moczall, Andreas; Oertel, Martina; Schmucker, Alexandra; Schneider, Andreas; Seth, Stefan; Thomsen, Ulrich; vom Berge, Philipp (2023): "Weakly anonymous Version of the Sample of Integrated Labour Market Biographies (SIAB) – Version 7521 v1". Research Data Centre of the Federal Employment Agency (BA) at the Institute for Employment Research (IAB). <https:/doi.org/10.5164/IAB.SIAB7521.de.en.v1>
+> Bureau of the Census. (release year). **American Community Survey-Master Address File Crosswalk YYYY-YYZZ [Data File]**. *Federal Statistical Research Data Center* [distributor].
 
+## Don't forget to cite the data - with DOI! {.smaller}
+
+:::: {.columns}
+::: {.column width="60%"}
+
+> Graf, Tobias; Grießemer, Stephan; Köhler, Markus; Lehnert, Claudia; Moczall, Andreas; Oertel, Martina; Schmucker, Alexandra; Schneider, Andreas; Seth, Stefan; Thomsen, Ulrich; vom Berge, Philipp (2023): "**Weakly anonymous Version of the Sample of Integrated Labour Market Biographies (SIAB) – Version 7521 v1**". *Research Data Centre of the Federal Employment Agency (BA) at the Institute for Employment Research (IAB).* <https:/doi.org/10.5164/IAB.SIAB7521.de.en.v1>
+
+:::
+::: {.column width="40%"}
+![](./images/siab-doi-citation.png)
+:::
+::::
+
+## Additional examples
 
 - Further examples on [Zotero for FSRDC](https://www.zotero.org/groups/2245704/fsrdc) (possibly not the most current).
 - Ideally, every research data center would have  "landing pages" for the data (the IAB example does)

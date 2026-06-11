@@ -21,10 +21,6 @@ code/
     04-create-tables.do
     05-create-figures.do
     06-create-intext.do
-data/
-  public/
-    dist_cepii.dta
-    usa_00010.dta
 run.sh
 ```
 
@@ -33,6 +29,9 @@ run.sh
 
 ```{.bash}
 data/
+  public/
+    dist_cepii.dta
+    usa_00010.dta
   confidential/
     lbd_2001.dta
     icf_2024.dta
@@ -49,7 +48,7 @@ data/
 ::::{.column width="60%"}
 
 
-```{.bash code-line-numbers="3-11,16"}
+```{.bash code-line-numbers="3-12"}
 README.md
 README.pdf
 code/
@@ -61,18 +60,17 @@ code/
     04-create-tables.do
     05-create-figures.do
     06-create-intext.do
-data/
-  public/
-    dist_cepii.dta
-    usa_00010.dta
 run.sh
 ```
 
 ::::
 ::::{.column width="40%"}
 
-```{.bash}
+```{.bash code-line-numbers="1"}
 data/
+  public/
+    dist_cepii.dta
+    usa_00010.dta
   confidential/
     lbd_2001.dta
     icf_2024.dta
@@ -90,7 +88,7 @@ data/
 ::::{.column width="60%"}
 
 
-```{.bash code-line-numbers="12-15"}
+```{.bash code-line-numbers="1"}
 README.md
 README.pdf
 code/
@@ -102,18 +100,17 @@ code/
     04-create-tables.do
     05-create-figures.do
     06-create-intext.do
-data/
-  public/
-    dist_cepii.dta
-    usa_00010.dta
 run.sh
 ```
 
 ::::
 ::::{.column width="40%"}
 
-```{.bash}
+```{.bash code-line-numbers="1-4"}
 data/
+  public/
+    dist_cepii.dta
+    usa_00010.dta
   confidential/
     lbd_2001.dta
     icf_2024.dta
@@ -142,18 +139,17 @@ code/
     04-create-tables.do
     05-create-figures.do
     06-create-intext.do
-data/
-  public/
-    dist_cepii.dta
-    usa_00010.dta
 run.sh
 ```
 
 ::::
 ::::{.column width="40%"}
 
-```{.bash code-line-numbers="1-4"}
+```{.bash code-line-numbers="5-7"}
 data/
+  public/
+    dist_cepii.dta
+    usa_00010.dta
   confidential/
     lbd_2001.dta
     icf_2024.dta
@@ -161,20 +157,4 @@ data/
 
 ::::
 :::::
-
-## Content
-
-:::::: {.columns}
-
-::::: {.column width="50%"}
-
-Full description as per the [(template) README](https://social-science-data-editors.github.io/template_README/)
-
-:::::
-
-::::: {.column width="30%"} 
-[![README](images/img-2021-11-08-2.png)](https://social-science-data-editors.github.io/template_README/)
-
-:::::
-::::::
 
