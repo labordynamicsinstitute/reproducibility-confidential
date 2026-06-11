@@ -95,7 +95,7 @@ my coding AI suggested that I add
 ```{r, child=c(here::here('versioning.md'))}
 ```
 
-```{r, child=c(here::here('readme-notebook.md'))}
+```{r, child=c(here::here('02-01-readme-notebook.md'))}
 ```
 
 # What is required
@@ -109,7 +109,7 @@ my coding AI suggested that I add
 ```{r, child=c(here::here('16-survey-extract.md'))}
 ```
 
-```{r, child=c(here::here('provenance-private.md'))}
+```{r, child=c(here::here('02-03-provenance-private.md'))}
 ```
 
 # Disclosure avoidance
@@ -123,7 +123,7 @@ my coding AI suggested that I add
 ```{r, child=c(here::here('packages.md'))}
 ```
 
-```{r, child=c(here::here('computational-requirements.md'))}
+```{r, child=c(here::here('02-02-computational-requirements.md'))}
 ```
 
 ```{r, child=c(here::here('confidential-data-packaging.md'))}
