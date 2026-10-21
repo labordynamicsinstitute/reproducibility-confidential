@@ -181,3 +181,11 @@ From the earlier desiderata of *environments*:
 - [x] **Isolated**: Installing a new or updated package for one project won’t break your other projects, and vice versa.
 - [x] **Portable**: Easily transport your projects from one computer to another, even across different platforms.
 - [ ] **Reproducible**: Records the exact package versions you depend on, and ensures those exact versions are the ones that get installed wherever you go.
+
+And more generally:
+
+- [x] your code runs without problem, after all the debugging.
+- [x] your code runs without manual intervention, and with low effort
+- [x] it actually produces all the outputs
+- [x] your code generates a log file that you can inspect, and that you could share with others.
+- [ ] ❓ it will run on somebody else's computer
