@@ -3,13 +3,13 @@
 
 cff-version: 1.2.0
 title: >-
-  Creating reproducible packages when data are confidential
+  Reproducibility when data are confidential
 message: >-
-  Presented at the 2024 FSRDC Conference. The opinions 
-  expressed in this talk are solely the authors, and do not 
-  represent the views of the U.S. Census Bureau, the American 
-  Economic Association, or any of the funding agencies.
-type: presentation
+  The opinions expressed here are solely the authors', and do
+  not represent the views of the U.S. Census Bureau, the
+  American Economic Association, or any of the funding
+  agencies.
+type: generic
 authors:
   - given-names: Lars
     family-names: Vilhuber
@@ -19,8 +19,18 @@ authors:
 repository-code: >-
   https://github.com/labordynamicsinstitute/reproducibility-confidential/
 abstract: >-
-  In this presentation, I focus on
-  techniques to improve reproducibility for scholars using confidential data, in 
-  particular in the US FSRDC.
+  Journals require that you share your code and data in a
+  replication package at the end of your research project.
+  That can be a challenge, when some parts of your research
+  data are confidential. Following some best practices from
+  day 1 can not only help you prepare this package later, but
+  also make you more productive researchers. Following some
+  best practices before releasing a package can avoid costly
+  revisions. This document provides guidance on how to ensure
+  the reproducibility and transparency of your research when
+  data are confidential. It is not meant to be exhaustive, and
+  it is not meant to be prescriptive. There are many ways to
+  construct a replication package, and even more situations in
+  which confidential data are housed.
 license: CC-BY-NC-4.0
-date-released: '2024-09-13'
+date-released: '2026-10-21'
