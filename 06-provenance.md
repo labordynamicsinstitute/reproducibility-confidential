@@ -30,7 +30,9 @@ License applying to Geodist data:
 
 ### Can we re-publish the file?
 
-% TODO: the presentation poses this question on a slide with no answer (see TODO.md)
+Based on the information in the **licenses** you agreed to, the **data use agreements (DUA)** you signed, the **non-disclosure agreements (NDA)**, the **legal environment** that you are subject to (GDPR etc.), the **institutional review board (IRB)** permission that you obtained, you must identify early on whether you will be able publish some or all of the data you use.
+
+In some environments, such as RDCs, this decision is not yours anyway, because the institution running your RDC is the custodian and controller of the data. But in other environments, you become the custodian, subject to those rules and agreements, and may be the one who controls the output. 
 
 ## Recording information
 
@@ -41,4 +43,5 @@ License applying to Geodist data:
 
 ## How to process data from the source
 
-[Preserving raw survey data early in research lifecycle (ethically!)](https://labordynamicsinstitute.github.io/tutorial-preserving-survey/presentation/)
+If you are yourself collecting data, we suggest you review 
+[Preserving raw survey data early in research lifecycle (ethically!)](https://labordynamicsinstitute.github.io/tutorial-preserving-survey/presentation/). However, similar techniques are valid when you "collect" administrative or confidential data. You may want to use **checksums** or similar mechanisms to identify the data sources you were provided with, to allow others in the future to verify that they have been provided with the same data that you had.

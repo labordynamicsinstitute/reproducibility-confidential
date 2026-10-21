@@ -16,7 +16,7 @@ Treat the **full** replication package as a puzzle:
 
 ## Releasing the public package
 
-The public package (`A`):
+The public package (`A`) will contain all data that can be made public, and **all** code.
 
 ```text
 README.md
@@ -43,7 +43,7 @@ data/
 - confidential final files
 - confidential parameters
 
-The confidential package (`B`), which stays in the RDC:
+The confidential package (`B`), which stays in the RDC, will contain only those pieces that are confidential.
 
 ```text
 README.md

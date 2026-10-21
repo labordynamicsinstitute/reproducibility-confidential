@@ -32,4 +32,5 @@ Project-local package environments keep one (sub-)project from breaking another,
 
 - See the full walkthrough (incl. Stata):
   [Creating environments](https://larsvilhuber.github.io/self-checking-reproducibility/10-creating-environments.html)
-- A Stata-specific version is in the appendix: [](environments-in-stata)
+
+

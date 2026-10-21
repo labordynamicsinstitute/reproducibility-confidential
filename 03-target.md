@@ -1,7 +1,7 @@
 (final-replication-package)=
 # To start at the end: the final replication package
 
-The finished product replication package should have some version of the following contents and structure (context: FSRDC). A full description of the README can be found [here](https://social-science-data-editors.github.io/template_README/).
+The finished product replication package should have some version of the following contents and structure (context: FSRDC). It should include all code (whether used in RDC or not), all public data (whether used in RDC or not). A full description of the README can be found [here](https://social-science-data-editors.github.io/template_README/).
 
 ```text
 README.md
@@ -24,7 +24,3 @@ data/
     lbd_2001.dta
     icf_2024.dta
 ```
-
-- **All code**, whether used in RDC or not
-- **All public data**, whether used in RDC or not
-- **NONE of the confidential data** present in the RDC

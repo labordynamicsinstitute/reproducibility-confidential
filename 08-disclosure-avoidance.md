@@ -9,6 +9,11 @@ Disclosure review is not a last-minute chore — design for it:
 - Keep confidential things in clearly separated, excludable files
 - Assume **someone will read your code**
 
+```{margin}
+
+The US Census Bureau and other RDCs regularly hold training sessions on how to prepare and submit **disclosure review requests**. Participate in them initially when starting to work on confidential data, but also return and refresh your knowledge, as methods and tools may change.
+```
+
 ## We already discussed some of this
 
 - A `confidential/` folder is never disclosed
@@ -20,6 +25,3 @@ Disclosure review is not a last-minute chore — design for it:
 - Faster disclosure review (fewer surprises, fewer changes)
 - A package you can have in hand when the paper is accepted!
 
-## There can be challenges...
-
-% TODO: the presentation ends this section with "There can be challenges..." and no content; the challenges are not listed (see TODO.md). The next chapters on secrets and confidential code address some of them.

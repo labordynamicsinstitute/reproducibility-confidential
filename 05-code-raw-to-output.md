@@ -1,12 +1,15 @@
 (code-raw-to-output)=
 # Code from raw data to output
 
-## The non-negotiable
-
 The package must run **from raw inputs to every number in the paper** — no manual steps, no hand edits.
 
-- Every table, figure, and in-text statistic produced by code
-- `estout`, `graph export`, `regsave` — never copy-paste from the console
+```{margin}
+- `estout`, `graph export`, `regsave` in Stata.
+- `ggsave`, `png()`, `stargazer` in R.
+- See [additional information](https://larsvilhuber.github.io/self-checking-reproducibility/03-automatically_saving_figures.html).
+```
+
+- Every table, figure, and in-text statistic produced by code. Never copy-paste from the console.
 - Ideally, **one** (or a small number) of entry points (`run.sh` / `main.do`) that runs it all, top to bottom
 
 ## Contents of a package (context: FSRDC)
