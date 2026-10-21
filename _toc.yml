@@ -8,11 +8,23 @@ parts:
     chapters:
       - file: 00-what-is-a-replication-package
       - file: 00-goal
-      - file: 10-final-replication-package
-      - file: 20-the-readme
-      - file: 30-environments-in-stata
-      - file: 40-secrets-in-code
-      - file: 50-confidential-code
-      - file: 51-avoiding-confidential-data-code
-      - file: 60-wrapping-up
+      - file: 01-why-bother
+      - file: 02-what-is-confidential-data
+      - file: 03-file-organization
+      - file: 03-target
+      - file: 03-versioning
+      - file: 04-readme
+      - file: 05-code-raw-to-output
+      - file: 06-provenance
+      - file: 07-provenance-private
+      - file: 08-disclosure-avoidance
+      - file: 09-secrets-in-code
+      - file: 10-confidential-code
+      - file: 11-avoiding-confidential-data-code
+      - file: 12-software
+      - file: 13-confidential-data-packaging
+      - file: 99-wrapping-up
+  - caption: Appendix
+    chapters:
       - file: 70-appendix
+      - file: 71-environments-in-stata
